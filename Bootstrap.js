@@ -366,6 +366,65 @@ Finalmente, remueve la clase smaller-image de tu primer elemento img y reempláz
   </form>
 </div> */
 
+/* Usando un elemento span, anida la palabra love dentro del elemento p que actualmente tiene el texto Things cats love. Luego dale a span la clase text-danger para cambiar el texto a rojo. */
+
+/*   <p>Things cats <span class="text-danger">love:</span></p>
+  <ul>
+    <li>cat nip</li>
+    <li>laser pointers</li>
+    <li>lasagna</li>
+  </ul>
+  <p>Top 3 things cats <span class="text-danger">hate:</span></p> */
+
+/* Anida tu primera imagen y tu elemento h2 dentro de un solo elemento <div class="row">. Anida tu elemento h2 dentro de <div class="col-xs-8"> y tu imagen en un <div class="col-xs-4"> para que estén en la misma línea. */
+
+/* <div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-8">
+      <h2 class="text-primary text-center">CatPhotoApp</h2>
+    </div>
+    <div class="col-xs-4">
+    <a
+      href="#"><img class="img-responsive thick-green-border" src="https://cdn.freecodecamp.org/curriculum/cat-photo-app/relaxing-cat.jpg" alt="A cute orange cat lying on its back."></a>
+  </div>
+  </div> */
+
+/* Usa Font Awesome para añadir un icono thumbs-up a tu botón de "Like", dándole un elemento i con las clases fas y fa-thumbs-up. Asegúrate de dejar el texto Like junto al icono. */
+
+/*  <button class="btn btn-block btn-primary"><i class="fas fa-thumbs-up"></i> Like</button>
+    </div> */
+
+/* Utiliza Font Awesome para agregar un icono info-circle a su botón info y un icono trash al botón borrar. */
+
+/*  <button class="btn btn-block btn-primary"><i class="fas fa-thumbs-up"></i> Like</button>
+    </div>
+    <div class="col-xs-4">
+      <button class="btn btn-block btn-info"><i class="fas fa-info-circle"></i> Info</button>
+    </div>
+    <div class="col-xs-4">
+      <button class="btn btn-block btn-danger"><span class="fas fa-trash"> Delete</button>
+    </div> */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
 /* ------------------------------------------------------------- */
 
 /* ------------------------------------------------------------- */
