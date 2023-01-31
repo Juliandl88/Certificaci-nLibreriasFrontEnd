@@ -46,55 +46,139 @@ $(".text-primary").addClass("animated shake"); */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* También puedes apuntar a elementos por su atributo id.
+
+Primero apunta a tu elemento button con el id target3 usando el selector $("#target3").
+
+Ten en cuenta que, al igual que con las declaraciones CSS, escribes un # antes del nombre del id.
+
+Luego usa la función .addClass() de jQuery para agregar las clases animated y fadeOut.
+
+Así es como harás que el elemento button con el id target6 se desvanezca: */
+
+/* <script>
+  $(document).ready(function() {
+    $("button").addClass("animated bounce");
+    $(".well").addClass("animated shake");
+$("#target3").addClass("animated fadeOut")
+$("#target6").addClass("animated fadeOut");
+  });
+</script> */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Elimina las tres funciones de jQuery que están dentro de tu document ready function, pero deja intacta tu función document ready function en sí. */
+
+/* <script>
+  $(document).ready(function() {
+ 
+
+  });
+</script> */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Usando .addClass(), agrega solo una clase a la vez al mismo elemento, de tres maneras diferentes:
+
+Agrega la clase animated a todos los elementos con el tipo button.
+
+Agrega la clase shake a todos los botones con la clase .btn.
+
+Agrega la clase btn-primary al botón con id #target1. */
+
+/* <script>
+  $(document).ready(function() {
+    $("button").addClass("animated")
+    $(".btn").addClass("shake")
+    $("#target1").addClass("btn-primary")
+  });
+</script> */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* De la misma manera en que puedes agregar clases a un elemento con la función addClass() de jQuery, 
+puedes eliminarlos con la función removeClass() de jQuery. */
+
+/* <script>
+  $(document).ready(function() {
+    $("button").addClass("animated bounce");
+    $(".well").addClass("animated shake");
+    $("#target3").addClass("animated fadeOut");
+    $(".btn").removeClass("btn-default");
+
+  });
+</script> */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Elimina tus selectores de jQuery, dejando document ready function vacío.
+
+Selecciona target1 y cambia su color a rojo. */
+
+/* <script>
+  $(document).ready(function() {
+   $("#target1").css("color", "red");
+
+  });
+</script> */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Query tiene una función llamada .prop() que te permite ajustar las propiedades de los elementos.
+
+Así es como deshabilitarías todos los botones:
+
+$("button").prop("disabled", true);
+Deshabilita solo el botón target1. */
+
+/* <script>
+  $(document).ready(function() {
+    $("#target1").css("color", "red");
+    $("#target1").prop("disabled", true)
+  });
+</script> */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* jQuery tiene una función llamada .html() que te permite agregar etiquetas HTML y texto dentro de un elemento. Cualquier contenido anterior dentro del elemento será completamente reemplazado con el contenido que proporciones usando esta función.
+
+Así es como reescribirías y enfatizarías el texto de nuestro título:
+
+$("h3").html("<em>jQuery Playground</em>");
+jQuery también tiene una función similar llamada .text() que solamente altera el texto sin agregar etiquetas. En otras palabras, esta función no evaluará ninguna etiqueta HTML que le pasemos, pero en cambio, la tratará como el texto por el que quieres reemplazar el contenido existente. */
+
+/* <script>
+  $(document).ready(function() {
+    $("#target1").css("color", "red");
+    $("#target4").html("<em>#target4</em>");
+
+  });
+</script> */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* jQuery tiene una función llamada .remove() que eliminará completamente un elemento HTML
+
+Remueve el elemento #target4 de la página utilizando la función .remove(). */
+
+/* <script>
+  $(document).ready(function() {
+    $("#target1").css("color", "red");
+    $("#target1").prop("disabled", true);
+
+    $("#target4").remove()
+
+  });
+</script> */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* jQuery tiene una función llamada appendTo() que te permite seleccionar elementos HTML y agregarlos a otro elemento.
 
-/* ------------------------------------------------------------- */
+Por ejemplo, si quisiéramos mover target4 desde nuestro "right well" a nuestro "left well", usaríamos:
 
-/* ------------------------------------------------------------- */
-
-/* ------------------------------------------------------------- */
-
-/* ------------------------------------------------------------- */
-
-/* ------------------------------------------------------------- */
-
-/* ------------------------------------------------------------- */
-
-/* ------------------------------------------------------------- */
-
-/* ------------------------------------------------------------- */
+$("#target4").appendTo("#left-well");
+Mueve tu elemento target2 desde tu left-well a tu right-well. */
 
 /* ------------------------------------------------------------- */
 
