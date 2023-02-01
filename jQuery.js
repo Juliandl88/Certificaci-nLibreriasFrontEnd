@@ -180,14 +180,148 @@ Por ejemplo, si quisiéramos mover target4 desde nuestro "right well" a nuestro 
 $("#target4").appendTo("#left-well");
 Mueve tu elemento target2 desde tu left-well a tu right-well. */
 
-/* ------------------------------------------------------------- */
+/* <script>
+  $(document).ready(function() {
+    $("#target1").css("color", "red");
+    $("#target1").prop("disabled", true);
+    $("#target4").remove();
+    $("#target2").appendTo("#right-well")
+
+  });
+</script> */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Clona tu elemento target5 y agrégalo a tu left-well. */
+
+/* <script>
+  $(document).ready(function() {
+    $("#target1").css("color", "red");
+    $("#target1").prop("disabled", true);
+    $("#target4").remove();
+    $("#target2").appendTo("#right-well");
+    $("#target5").clone().appendTo("#left-well")
+
+  });
+</script> */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Cada elemento HTML tiene un elemento parent (padre) del cual inherits (hereda) propiedades.
+
+Por ejemplo, tu elemento jQuery Playground h3 tiene el elemento padre de <div class="container-fluid">, que en sí mismo tiene el padre body.
+
+jQuery tiene una función llamada parent() que te permite acceder al padre del elemento que hayas seleccionado.
+
+Dale al padre del elemento #target1 un color de fondo rojo.*/
+
+/* <script>
+  $(document).ready(function() {
+    $("#target1").css("color", "red");
+    $("#target1").prop("disabled", true);
+    $("#target4").remove();
+    $("#target2").appendTo("#right-well");
+    $("#target5").clone().appendTo("#left-well");
+    $("#target1").parent().css("background-color", "red");
+
+  });
+</script> */
 
 /* ------------------------------------------------------------- */
+
+/* jQuery tiene una función llamada children() que te permite acceder a los hijos del elemento que hayas seleccionado. 
+
+Dale a todos los hijos de tu elemento right-well el color naranja.*/
+
+
+/* <script>
+  $(document).ready(function() {
+    $("#target1").css("color", "red");
+    $("#target1").prop("disabled", true);
+    $("#target4").remove();
+    $("#target2").appendTo("#right-well");
+    $("#target5").clone().appendTo("#left-well");
+    $("#target1").parent().css("background-color", "red");
+    $("#right-well").children().css("color", "orange")
+
+  });
+</script> */
+
+/* ------------------------------------------------------------- */
+
+/* jQuery usa selectores de CSS para apuntar elementos. El selector target:nth-child(n) de CSS, te permite seleccionar todos los enésimos elementos con el tipo de elemento o la clase apuntada.
+
+Así es como le darías al tercer elemento en cada "well" la clase de rebote:
+
+$(".target:nth-child(3)").addClass("animated bounce");
+Haz que el segundo niño en cada uno de sus elementos de "well" rebote. Debes seleccionar los hijos de los elementos con la clase target. */
+
+/* <script>
+  $(document).ready(function() {
+    $("#target1").css("color", "red");
+    $("#target1").prop("disabled", true);
+    $("#target4").remove();
+    $("#target2").appendTo("#right-well");
+    $("#target5").clone().appendTo("#left-well");
+    $("#target1").parent().css("background-color", "red");
+    $("#right-well").children().css("color", "orange");
+    $(".target:nth-child(2)").addClass("animated bounce");
+
+  });
+</script> */
+
+/* ------------------------------------------------------------- */
+
+/* Apunta a elementos pares utilizando jQuery
+También puedes apuntar a elementos basado en sus posiciones, usando los selectores :odd o :even.
+
+Ten en cuenta que jQuery es indexado desde el cero, lo que significa que el primer elemento de una selección tiene la posición 0. Esto puede ser un poco confuso, ya que contra-intuitivamente, :odd selecciona el segundo elemento (posición 1), cuarto elemento (posición 3), y así sucesivamente.
+
+Así es como apuntas a todos los elementos impares con la clase target y les das clases:
+
+$(".target:odd").addClass("animated shake");
+Intenta seleccionar todos los elementos pares target y darle las clases de animated y shake. Recuerda que even se refiere a la posición de los elementos con un sistema de indexado desde cero en mente. */
+
+/* <script>
+  $(document).ready(function() {
+    $("#target1").css("color", "red");
+    $("#target1").prop("disabled", true);
+    $("#target4").remove();
+    $("#target2").appendTo("#right-well");
+    $("#target5").clone().appendTo("#left-well");
+    $("#target1").parent().css("background-color", "red");
+    $("#right-well").children().css("color", "orange");
+    $("#left-well").children().css("color", "green");
+    $(".target:nth-child(2)").addClass("animated bounce");
+    $(".target:even").addClass("animated shake"); // even es a los impares
+
+  });
+</script> */
+
+/* ------------------------------------------------------------- */
+
+/* jQuery también puede seleccionar al elemento body.
+
+Así es como haríamos que el cuerpo entero se desvaneciera: $("body").addClass("animated fadeOut");
+
+Pero hagamos algo más dramático. Agrega las clases animated y hinge a tu elemento body. */
+
+/* <script>
+  $(document).ready(function() {
+    $("#target1").css("color", "red");
+    $("#target1").prop("disabled", true);
+    $("#target4").remove();
+    $("#target2").appendTo("#right-well");
+    $("#target5").clone().appendTo("#left-well");
+    $("#target1").parent().css("background-color", "red");
+    $("#right-well").children().css("color", "orange");
+    $("#left-well").children().css("color", "green");
+    $(".target:nth-child(2)").addClass("animated bounce");
+    $(".target:even").addClass("animated shake");
+    $("body").addClass("animated hinge");
+
+  });
+</script> */
+
+/* ------------------------------------------------------------- */
+
