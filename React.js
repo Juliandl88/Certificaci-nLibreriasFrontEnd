@@ -159,17 +159,68 @@ El editor de código tiene una función llamada MyComponent. Completa esta funci
 
 Nota: El texto se considera hijo del elemento div, por lo que no podrás utilizar una etiqueta de autocierre. */
 
-/* ------------------------------------------------------------- */
+/* const MyComponent = function() {
+  // Cambia el código debajo de esta línea
+return (
+  <div>Hello world</div>
+)
+
+
+  // Cambia el código encima de esta línea
+} */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Crea un componente de React
+La otra forma de definir un componente React es con la sintaxis de clase de ES6 class. En el siguiente ejemplo, Kitten hereda de React.Component:
+
+class Kitten extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <h1>Hi</h1>
+    );
+  }
+}
+Esto crea una clase de ES6 Kitten que hereda de la clase React.Component. Así que la clase Kitten ahora tiene acceso a muchas características útiles de React, como el estado local y el ciclo de vida de los "hooks". No te preocupes si aún no estás familiarizado con estos términos, ya que se tratarán con más detalle en los desafíos posteriores. También ten en cuenta que la clase Kitten tiene un constructor definido dentro de ella que llama a super(). Utiliza super() para llamar al constructor de la clase padre, en este caso React.Component. El constructor es un método especial utilizado durante la inicialización de objetos que se crean con la palabra clave class. Es una mejor práctica llamar al constructor de un componente con super, y pasar sus propiedades props a ambos. Esto asegura que el componente esté inicializado correctamente. Por ahora, sepan que es estándar que se incluya este código. Pronto verás otros usos para el constructor, así como las props.
+
+MyComponent está definido en el editor de código usando la sintaxis de clase. Termina de escribir el método render para que devuelva un elemento div que contiene un h1 con el texto Hello React!.
+ */
+
+/* class Kitten extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div>Hello React!</div>
+    );
+  }
+} */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Crear un componente con composición
+Ahora veremos cómo podemos componer múltiples componentes de React juntos. Imagina que estás construyendo una aplicación y has creado tres componentes: un Navbar, Dashboard y Footer.
 
-/* ------------------------------------------------------------- */
+Para componer estos componentes juntos, se podría crear un componente App parent que renderiza cada uno de estos tres componentes como children. Para renderizar un componente como hijo en un componente React, se incluye el nombre del componente escrito como una etiqueta HTML personalizada en el JSX. Por ejemplo, en el método render se puede escribir:
+
+return (
+ <App>
+  <Navbar />
+  <Dashboard />
+  <Footer />
+ </App>
+)
+Cuando React encuentra una etiqueta HTML personalizada que hace referencia a otro componente (un nombre de componente envuelto en < /> como en este ejemplo), renderiza el marcado de ese componente en la ubicación de la etiqueta. Esto debería ilustrar la relación padre/hijo entre el componente App y Navbar, Dashboard, y Footer.
+
+En el editor de código, hay un componente funcional simple llamado ChildComponent y un componente de clase llamado ParentComponent. Compón los dos juntos renderizando el ChildComponent dentro del ParentComponent. Asegúrate de cerrar la etiqueta ChildComponent con una barra diagonal.
+
+Nota: ChildComponent se define con una función de flecha ES6 porque es una práctica muy común al usar React. Sin embargo, has de saber que se trata de una función simple. Si no estás familiarizado con la sintaxis de la función flecha, consulta la sección de JavaScript. */
 
 /* ------------------------------------------------------------- */
 
