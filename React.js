@@ -305,11 +305,50 @@ En el editor de código, el componente TypesOfFood ya está incluyendo (renderiz
 
 Anida dos componentes dentro de Fruits: primero NonCitrus y luego Citrus. Ambos componentes se te proporcionan en segundo plano. A continuación, anida el componente de clase Fruits en el componente TypesOfFood, debajo del encabezado h1 y encima de Vegetables. El resultado debe ser una serie de componentes anidados, que utiliza dos tipos de componentes diferentes. */
 
-/* ------------------------------------------------------------- */
+/* class Fruits extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+      <div>
+        <h2>Fruits:</h2>
+        
+        <NonCitrus />
+        <Citrus />
+      
+    </div>
+  );
+}
+};
+
+class TypesOfFood extends React.Component {
+constructor(props) {
+   super(props);
+}
+render() {
+  return (
+    <div>
+      <h1>Types of Food:</h1>
+      
+        <Fruits />
+      
+      <Vegetables />
+    </div>
+  );
+}
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Renderiza un componente de clase al DOM
+Puede que recuerdes haber usado la API ReactDOM en un desafío anterior para renderizar elementos JSX al DOM. El proceso para renderizar los componentes de React será muy similar. Los últimos desafíos se centraron en los componentes y la composición, por lo que el renderizado se ha realizado tras bambalinas. Sin embargo, ninguna parte de código de React que escribas se procesará en el DOM sin realizar una llamada a la API de ReactDOM.
+
+Aquí va un recordatorio de la sintaxis: ReactDOM.render(componentToRender, targetNode). El primer argumento es el componente de React que deseas renderizar. El segundo argumento es el nodo del DOM en el que deseas renderizar ese componente.
+
+Los componentes de React se pasan a ReactDOM.render() de manera un poco diferente a como se hace con los elementos JSX. Para los elementos JSX, pasas el nombre del elemento que deseas representar. Sin embargo, para los componentes de React, debes usar la misma sintaxis que si estuvieras renderizando un componente anidado, por ejemplo, ReactDOM.render(<ComponentToRender />, targetNode). Se utiliza esta sintaxis tanto para los componentes de clase ES6 como para los componentes funcionales.
+
+Los componentes Fruits y Vegetables se definen por ti tras bambalinas. Renderiza ambos componentes como hijos del componente TypesOfFood, y luego renderiza TypesOfFood al DOM. Hay un div con id='challenge-node' disponible para que lo uses. */
 
 /* ------------------------------------------------------------- */
 
