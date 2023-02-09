@@ -477,15 +477,48 @@ class ToDo extends React.Component {
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Usa props predeterminadas
+React también tiene una opción para establecer props predeterminadas. Puedes asignar props predeterminadas a un componente como si fueran una propiedad dentro del propio componente y React asigna la prop predeterminada si es necesario. Esto te permite especificar cuál debe ser el valor de una prop si no se provee un valor específico. Por ejemplo, si declaras MyComponent.defaultProps = { location: 'San Francisco' }, has definido una prop de localización que se establece en la cadena San Francisco, a menos que especifiques lo contrario. React asigna props predeterminadas si estas no están definidas, pero si pasas el valor null como valor para una prop, este permanecerá null.
+
+El editor de código muestra un componente ShoppingCart. Define props predeterminadas en este componente que especifican una prop items con un valor de 0. */
+
+/* const ShoppingCart = (props) => {
+  return (
+    <div>
+      <h1>Shopping Cart Component</h1>
+    </div>
+  )
+};
+
+ShoppingCart.defaultProps = { items: 0 } */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Reemplaza las "props" predeterminadas
+La capacidad de establecer valores por defecto para las props es una característica útil en React. La manera de reemplazar las props predeterminadas es establecer explícitamente los valores de las props para un componente.
 
-/* ------------------------------------------------------------- */
+El componente ShoppingCart ahora renderiza un componente hijo Items. Este componente Items tiene una prop predeterminada quantity establecida al entero 0. Reemplaza la prop predeterminada pasando un valor de 10 para quantity.
 
-/* ------------------------------------------------------------- */
+Nota: Recuerda que la sintaxis para agregar una prop a un componente se parece a la sintaxis para agregar atributos en un elemento HTML. Sin embargo, dado que el valor de quantity es un entero, no irá entre comillas pero debe estar envuelto entre llaves. Por ejemplo, {100}. Esta sintaxis le dice a JSX que interprete el valor dentro de las llaves directamente como JavaScript. */
+
+/* const Items = (props) => {
+  return <h1>Current Quantity of Items in Cart: {props.quantity}</h1>
+}
+
+Items.defaultProps = {
+  quantity: 0
+}
+
+class ShoppingCart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+   
+    return <Items quantity={10}/>
+   
+  }
+}; */
 
 /* ------------------------------------------------------------- */
 
