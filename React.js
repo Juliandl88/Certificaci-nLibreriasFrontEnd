@@ -522,6 +522,145 @@ class ShoppingCart extends React.Component {
 
 /* ------------------------------------------------------------- */
 
+/* Usa PropTypes para definir las props que esperas
+React proporciona características útiles de validación de tipos para verificar que los componentes reciban las props del tipo correcto. Por ejemplo, tu aplicación hace una llamada a un API para obtener datos que se esperan que sea un arreglo, el cual es pasado al componente como una prop. Puedes establecer propTypes en tu componente para que los datos sean de tipo array. Esto arrojará una advertencia útil cuando los datos sean de otro tipo.
+
+Se considera una muy buena práctica definir los propTypes cuando conoces el tipo de una propiedad con antelación. Puedes definir una propiedad propTypes para un componente de la misma manera que defines defaultProps. Al hacer esto, se validará que las props de una clave determinada están presentes con un tipo específico. Aquí hay un ejemplo para validar el tipo function para una prop llamada handleClick:
+
+MyComponent.propTypes = { handleClick: PropTypes.func.isRequired }
+En el ejemplo anterior, la parte de PropTypes.func verifica que handleClick es una función. Añadir isRequired le dice a React que handleClick es una propiedad obligatoria para ese componente. Verás una advertencia si no se proporciona esa propiedad. También ten en cuenta que func representa function. Entre los siete tipos primitivos de JavaScript, function y boolean (escrito como bool) son los únicos dos que utilizan ortografía diferente. Además de los tipos primitivos, hay otros tipos disponibles. Por ejemplo, puedes validar si una prop es un elemento React. Por favor, consulta la documentación para todas las opciones.
+
+Nota: A partir de React v15.5.0, PropTypes se importa de manera independiente de React, así: import PropTypes from 'prop-types';
+
+Define propTypes para el componente Items de tal manera que quantity sea una prop obligatoria y verificar que sea de tipo number. */
+
+/* const Items = (props) => {
+  return <h1>Current Quantity of Items in Cart: {props.quantity}</h1>
+};
+
+// Cambia el código debajo de esta línea
+Items.propTypes = { quantity: PropTypes.number.isRequired }
+// Cambia el código encima de esta línea
+
+Items.defaultProps = {
+  quantity: 0
+};
+
+class ShoppingCart extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <Items />
+  }
+}; */
+
+/* ------------------------------------------------------------- */
+
+/* Accede a propiedades "props" usando this.props
+Los últimos desafíos cubrieron las formas básicas de pasar propiedades a un componente hijo. Pero, ¿qué pasa si el componente hijo al que se le pasa una propiedad es un componente de clase ES6, en lugar de un componente funcional sin estado? Los componentes de clase ES6 usan una convención un poco diferente para acceder a las propiedades.
+
+Cada vez que se hace referencia a un componente de clase en sí mismo, se utiliza la palabra clave this. Para acceder a las propiedades dentro de un componente de clase, se antepone al código que se utiliza para acceder a él con this. Por ejemplo, si un componente de clase de ES6 tiene una propiedad llamada data, se escribirá {this.props.data} en JSX.
+
+Renderiza una instancia del componente Welcome en el componente padre App. Aquí, dale a Welcome un prop de name y asígnale un valor de una cadena. Dentro del hijo, Welcome, accede el prop name dentro de las etiquetas strong. */
+
+/* class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  render() {
+    return (
+        <div>
+            
+            <Welcome name="Julian"/>
+            
+        </div>
+    );
+  }
+};
+
+class Welcome extends React.Component {
+  constructor(props) {
+    super(props);
+
+  }
+  render() {
+    return (
+        <div>
+        
+          <p>Hello, <strong>{this.props.name}</strong>!</p>
+        
+        </div>
+    );
+  }
+}; */
+
+/* ------------------------------------------------------------- */
+
+/* Revisa el uso de "props" con componentes funcionales sin estado
+Excepto por el último desafío, has estado pasando props a componentes funcionales sin estado. Estos componentes actúan como funciones puras. Aceptan props como entrada y devuelven la misma vista cada vez que se les pasa el mismo props. Tal vez te estes preguntando qué es estado, y el próximo desafío lo cubrirá con más detalle. Antes de eso, aquí hay una revisión de la terminología de los componentes.
+
+Un componente funcional sin estado, es cualquier función que escribas que acepte props y devuelva JSX. Un componente sin estado, por otra parte, es una clase que extiende React.Component, pero no usa el estado interno (que será cubierto en el siguiente desafío). Finalmente, un componente con estado es un componente de clase que mantiene su propio estado interno. Puedes ver componentes con estado referidos simplemente como componentes de React.
+
+Un patrón común es intentar minimizar el estado y crear componentes funcionales sin estado siempre que sea posible. Esto ayuda a contener tu administración de estado a un área específica de tu aplicación. A su vez, esto mejora el desarrollo y el mantenimiento de tu aplicación al facilitar el seguimiento de cómo los cambios de estado afectan a su comportamiento.
+
+El editor de código tiene un componente CampSite que renderiza un componente Camper como un componente hijo. Define el componente Camper y asigna los props predeterminados de { name: 'CamperBot' }. Dentro del componente Camper, renderiza el código que quieras, pero asegúrate de tener un elemento p que incluya sólo el valor name que se pasa como un prop. Por último, define propTypes en el componente Camper para requerir que name sea proporcionado como un prop y verifique que sea de tipo string. */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
 /* ------------------------------------------------------------- */
 
 /* ------------------------------------------------------------- */
