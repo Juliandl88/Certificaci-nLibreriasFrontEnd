@@ -607,11 +607,29 @@ Un patrón común es intentar minimizar el estado y crear componentes funcionale
 
 El editor de código tiene un componente CampSite que renderiza un componente Camper como un componente hijo. Define el componente Camper y asigna los props predeterminados de { name: 'CamperBot' }. Dentro del componente Camper, renderiza el código que quieras, pero asegúrate de tener un elemento p que incluya sólo el valor name que se pasa como un prop. Por último, define propTypes en el componente Camper para requerir que name sea proporcionado como un prop y verifique que sea de tipo string. */
 
-/* ------------------------------------------------------------- */
+/* const Camper = props => <p>{props.name}</p>;
+
+Camper.defaultProps = {
+  name: "CamperBot"
+};
+
+Camper.propTypes = {
+  name: PropTypes.string.isRequired
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Crea un componente de estado
+Uno de los temas más importantes en React es state. El estado consiste en cualquier dato que tu aplicación necesite conocer y que pueda cambiar con el tiempo. Quieres que tus aplicaciones respondan a los cambios de estado y presenten una interfaz de usuario actualizada cuando sea necesario. React ofrece una buena solución para el manejo de estado de aplicaciones web modernas.
+
+Creas un estado en un componente de React declarando una propiedad state en la clase del componente en su constructor. Esto inicializa el componente con state cuando se crea. La propiedad state debe establecerse en un object de JavaScript. Declararlo se ve así:
+
+this.state = {
+
+}
+Tienes acceso al objeto state a lo largo de la vida de tu componente. Puedes actualizarlo, renderizarlo en tu interfaz de usuario y pasarlo como propiedades a componentes hijos. El objeto state puede ser tan complejo o simple como lo necesites. Ten en cuenta que debes crear un componente de clase heredando React.Component para crear un state como este.
+
+Hay un componente en el editor de código que está intentando renderizar una propiedad firstName desde su state. Sin embargo, no hay ningún state definido. Inicia el componente con state en el constructor y asigna tu nombre a la propiedadfirstName. */
 
 /* ------------------------------------------------------------- */
 
