@@ -727,6 +727,148 @@ Hay un elemento button en el editor de código que tiene un controlador onClick(
 
 Haz clic en el botón y observa la actualización de estado renderizada. No te preocupes si no entiendes completamente cómo funciona el código del controlador de clics hasta ahora. Será cubierto en los siguientes desafíos. */
 
+/* class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'Initial State'
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+    // Cambia el código debajo de esta línea
+    this.setState({
+  name: 'React Rocks!'
+});
+
+    // Cambia el código encima de esta línea
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.handleClick}>Click Me</button>
+        <h1>{this.state.name}</h1>
+      </div>
+    );
+  }
+}; */
+
+/* ------------------------------------------------------------- */
+
+/* Vincula 'this' a un método de clase
+Además de configurar y actualizar state, también puedes definir métodos para tu componente de clase. Un método de clase normalmente necesita usar la palabra clave this para que pueda acceder a propiedades de la clase (como state y props) dentro del ámbito del método. Hay algunas maneras de permitir que los métodos de tu clase accedan a this.
+
+Una forma común es enlazar explícitamente this en el constructor para que this se vincule a los métodos de clase cuando el componente es inicializado. Habrás notado que el último desafío utilizó this.handleClick = this.handleClick.bind(this) para su método handleClick en el constructor. Luego, cuando llamas a una función como this.setState() dentro de su método de clase, this se refiere a la clase y no será undefined.
+
+Nota: La palabra clave this es uno de los aspectos más confusos de JavaScript pero juega un papel importante en React. Aunque su comportamiento aquí es totalmente normal, estas lecciones no son el lugar para una revisión a profundidad de this, así que por favor, ¡consulta otras lecciones si lo anterior es confuso!
+
+El editor de código tiene un componente con un state que mantiene un seguimiento del texto. También tiene un método que le permite establecer el texto a You clicked!. Sin embargo, el método no funciona porque está utilizando la palabra clave this que no está definida. Arréglalo explícitamente ligando this al método handleClick() en el constructor del componente.
+
+A continuación, añade un click handler al elemento button en el método render. Debes activar el método handleClick() cuando el botón recibe un evento de clic. Recuerda que el método que pasas al onClick handler necesita llaves porque debe ser interpretado directamente como JavaScript.
+
+Una vez que completes los pasos anteriores debes poder hacer clic en el botón y ver You clicked!. */
+
+/* class MyComponent extends React.Component {
+constructor(props) {
+  super(props);
+  this.state = {
+    name: 'Initial State'
+  };
+  this.handleClick = this.handleClick.bind(this);
+}
+handleClick() {
+  // change code below this line
+  this.setState({
+    name: 'React Rocks!'
+  });
+  // change code above this line
+}
+render() {
+  return (
+    <div>
+      <button onClick={this.handleClick}>Click Me</button>
+      <h1>{this.state.name}</h1>
+    </div>
+  );
+}
+}; */
+
+/* ------------------------------------------------------------- */
+
+/* Usa el estado para alternar un elemento
+A veces puedes necesitar conocer el estado anterior al actualizar el estado. Sin embargo, las actualizaciones del estado pueden ser asíncronas: esto significa que React puede procesar múltiples llamadas a setState() en una sola actualización. Esto significa que no puedes confiar en el valor anterior de this.state o this.props al calcular el siguiente valor. Por lo tanto, no debes usar código como este:
+
+this.setState({
+  counter: this.state.counter + this.props.increment
+});
+En su lugar, debes pasar una función a setState que te permitirá acceder al estado y props. El usar una función con setState te garantiza que estás trabajando con los valores más actuales del estado y props. Esto significa que lo anterior debe reescribirse así:
+
+this.setState((state, props) => ({
+  counter: state.counter + props.increment
+}));
+También puedes usar un formulario sin props si necesitas solo el state:
+
+this.setState(state => ({
+  counter: state.counter + 1
+}));
+Ten en cuenta que tienes que encapsular el objeto literal entre paréntesis, de lo contrario JavaScript pensará que es un bloque de código.
+
+MyComponent tiene una propiedad visibility que se inicializa con el valor false. El método de renderización devuelve un resultado si el valor de visibility es verdadero, y un resultado diferente si es falso.
+
+Actualmente, no hay forma de actualizar la propiedad visibility en el state del componente. El valor debe cambiar entre verdadero y falso. Hay un manejador para el evento clic en el botón que activa un método de clase llamado toggleVisibility(). Pasa una función a setState para definir este método, de tal forma que el state de visibility cambie al valor opuesto cuando se llame el método. Si visibility es false, el método lo cambia a true y viceversa.
+
+Finalmente, haz clic en el botón para ver la renderizado condicional del componente basado en su state.
+
+Pista: ¡No olvides enlazar la palabra clave this al método en el constructor! */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
+/* ------------------------------------------------------------- */
+
 /* ------------------------------------------------------------- */
 
 /* ------------------------------------------------------------- */
