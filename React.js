@@ -631,23 +631,101 @@ Tienes acceso al objeto state a lo largo de la vida de tu componente. Puedes act
 
 Hay un componente en el editor de código que está intentando renderizar una propiedad firstName desde su state. Sin embargo, no hay ningún state definido. Inicia el componente con state en el constructor y asigna tu nombre a la propiedadfirstName. */
 
-/* ------------------------------------------------------------- */
+/* class StatefulComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    // Cambia solo el código debajo de esta línea
+    this.state = {
+      firstName : "Julián"
+}
+
+    // Cambia solo el código encima de esta línea
+  }
+  render() {
+    return (
+      <div>
+        <h1>{this.state.firstName}</h1>
+      </div>
+    );
+  }
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Renderiza el estado en la interfaz de usuario
+Una vez que se define el estado inicial de un componente, se puede mostrar cualquier parte del mismo en la interfaz de usuario que se renderiza. Si un componente tiene estado, siempre tendrá acceso a los datos en state en su método render(). Puedes acceder a los datos con this.state.
+
+Si quieres acceder a un valor de estado dentro del return del método de renderización, tienes que encerrar el valor entre llaves.
+
+state es una de las características más poderosas de los componentes de React. Esto te permite realizar un seguimiento de los datos importantes en tu aplicación y generar una interfaz de usuario en respuesta a los cambios en estos datos. Si tus datos cambian, tu interfaz de usuario cambiará. React usa lo que se llama un DOM virtual, para realizar un seguimiento de los cambios detrás de escena. Cuando se actualizan los datos de estado, activa un re-renderizado de los componentes usando esos datos: incluyendo componentes hijos que recibieron los datos como un prop. React actualiza el DOM actual, pero solo cuando sea necesario. Esto significa que no tienes que preocuparte por cambiar el DOM. Tú simplemente declara cómo debe verse la interfaz de usuario.
+
+Ten en cuenta que si creas un componente con estado, ningún otro componente es consciente de su state. Su state está completamente encapsulado, o local a ese componente, a menos que pases datos de estado a un componente hijo como props. Esta noción de state encapsulado, es muy importante porque te permite escribir cierta lógica, luego tener esa lógica contenida y aislada en un lugar de tu código.
+
+En el editor de código, MyComponent ya tiene estado. Define una etiqueta h1 en el método de renderizado del componente que renderiza el valor del name desde el estado del componente.
+
+Note: El h1 solo debe renderizar el valor de state y nada más. En JSX, cualquier código que escribas con llaves { } será tratado como JavaScript. Así que para acceder al valor desde el state solo hay que encerrar la referencia entre llaves. */
+
+/* class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'freeCodeCamp'
+    }
+  }
+  render() {
+    return (
+      <div>
+        
+        <h1>{this.state.name}</h1>
+        
+      </div>
+    );
+  }
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Otra manera de renderizar el estado en la interfaz de usuario
+Hay otra manera de acceder al state de un componente. En el método render(), antes de la sentencia return, se puede escribir JavaScript directamente. Por ejemplo, puedes declarar funciones, acceder a datos de state o props, realizar cálculos sobre estos datos, etc. Luego, puedes asignar cualquier dato a las variables, a las que tienes acceso en la sentencia return.
+
+En el método de renderización de MyComponent, define una const llamada name y asígnalo igual al valor del nombre en el state del componente. Debido a que puedes escribir JavaScript directamente en esta parte del código, no tienes que incluir esta referencia entre llaves.
+
+A continuación, en la sentencia return, renderiza este valor en una etiqueta h1 usando la variable name. Recuerda, necesitas usar la sintaxis JSX (llaves para JavaScript) en la sentencia return. */
+
+/* class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'freeCodeCamp'
+    }
+  }
+  render() {
+    // Cambia el código debajo de esta línea
+        const name = this.state.name;
+    // Cambia el código encima de esta línea
+    return (
+      <div>
+        
+<h1>{name}</h1>
+        
+      </div>
+    );
+  }
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Define el estado con this.setState
+Los desafíos anteriores cubrieron el componente state y cómo inicializar el state en el constructor. También hay una forma de cambiar el state del componente. React proporciona un método para actualizar el componente state llamado setState. El método setState dentro de tu clase de componente se llama así: this.setState(), pasando un objeto con pares clave-valor. Las claves son tus propiedades de estado y los valores son datos de estado actualizados. Por ejemplo, si estuviéramos almacenando un username en estado y quisiéramos actualizarlo, se vería así:
 
-/* ------------------------------------------------------------- */
+this.setState({
+  username: 'Lewis'
+});
+React espera que nunca modifiques state directamente. En su lugar, siempre usa this.setState() cuando ocurran cambios de estado. Además, ten en cuenta que React puede agrupar múltiples actualizaciones de estado con el fin de mejorar el rendimiento. Esto significa que las actualizaciones de estado a través del método setState pueden ser asíncronas. Existe una sintaxis alternativa para el método setState que proporciona una forma de evitar ese problema. Esto es raramente necesario, ¡pero es bueno tenerlo en cuenta! Por favor, consulte la documentación de React para más información.
 
-/* ------------------------------------------------------------- */
+Hay un elemento button en el editor de código que tiene un controlador onClick(). Este controlador es activado cuando el button recibe un evento clic en el navegador, y ejecuta el método handleClick definido en MyComponent. Dentro del método handleClick, actualiza el componente state usando this.setState(). Establece la propiedad name en el state para igualar la cadena React Rocks!.
+
+Haz clic en el botón y observa la actualización de estado renderizada. No te preocupes si no entiendes completamente cómo funciona el código del controlador de clics hasta ahora. Será cubierto en los siguientes desafíos. */
 
 /* ------------------------------------------------------------- */
 
