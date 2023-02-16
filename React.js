@@ -964,48 +964,239 @@ Por último, pero no menos importante, no olvides añadir los enlaces necesarios
 
 /* ------------------------------------------------------------- */
 
-/* Crea una entrada controlada
-Tu aplicación puede tener interacciones más complejas entre state y la interfaz de usuario renderizada. Por ejemplo, elementos de control de formulario para la entrada de texto, tales como input y textarea, mantienen su propio estado en el DOM como los tipos de usuario. Con React, puedes mover este estado mutable hacia el state de un componente de React. La entrada del usuario se convierte en parte del state de la aplicación, así que React controla el valor de ese campo de entrada. Por lo general, si tienes componentes de React con campos de entrada en los que el usuario puede escribir, será un formulario de entrada controlado.
+/* Crea un formulario controlado
+El último desafío mostró que React puede controlar el estado interno de ciertos elementos como input y textarea, lo que los hace componentes controlados. Esto también se aplica a otros elementos del formulario, incluyendo el elemento regular HTML form.
 
-El editor de código tiene el esqueleto de un componente llamado ControlledInput para crear un elemento input controlado. El state del componente ya está inicializado con una propiedad input que contiene una cadena vacía. Este valor representa el texto que un usuario escribe en el campo input.
+El componente MyForm está configurado con un form vacío, con un manejador de envío. El manejador de envío será llamado cuando se envíe el formulario.
 
-Primero, crea un método llamado handleChange() que tiene un parámetro llamado event. Cuando el método es llamado, este recibe un objeto event que contiene una cadena de texto del elemento input. Puedes acceder a esta cadena con event.target.value dentro del método. Actualiza la propiedad input del state del componente con esta nueva cadena.
+Hemos añadido un botón que envía el formulario. Puedes ver que tiene el type establecido en submit indicando que es el botón que controla el formulario. Añade el elemento input en el formulario form y establece sus atributos value y onChange() como el último desafío. A continuación, debes completar el método handleSubmit para que establezca la propiedad de estado del componente submit al valor de entrada actual en el state local.
 
-En el método render, crea el elemento input encima de la etiqueta h4. Añade un atributo value que es igual a la propiedad input del state del componente. Luego añade un manejador de eventos onChange() establecido al método handleChange().
+Nota: También debes llamar a event.preventDefault() en el controlador de envío, para evitar el comportamiento predeterminado de envío de formulario que actualizará la página web. Para la comodidad de los campistas, el comportamiento predeterminado se ha desactivado aquí para evitar que las actualizaciones restablezcan el código de desafío.
 
-Cuando escribes en el cuadro de entrada, ese texto es procesado por el método handleChange(), establecido como la propiedad input en el state local, y renderizado como el valor en el cuadro input de la página. El state del componente es la única fuente de verdad con respecto a los datos de entrada.
+Por último, crea una etiqueta h1 después del form que renderiza el valor de submit del state del componente. A continuación, puedes escribir en el formulario y hacer clic en el botón (o pulsar intro), y deberías ver tu entrada renderizada en la página. */
 
-Por último, pero no menos importante, no olvides añadir los enlaces necesarios en el constructor. */
+/* class MyForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: '',
+      submit: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange(event) {
+    this.setState({
+      input: event.target.value
+    });
+  }
+  handleSubmit(event) {
+    // Cambia el código debajo de esta línea
+    this.setState({
+      submit: this.state.input
+    })
+    event.preventDefault();
+    // Cambia el código encima de esta línea
+  }
+  render() {
+    return (
+
+      <div>
+
+        <form onSubmit={this.handleSubmit}>
+          <h1>{this.state.submit}</h1>
+          
+          <input value={this.state.input} onChange={this.handleChange}></input>
+         
+          <button type='submit'>Submit!</button>
+        </form>
+        
+
+        
+      </div>
+    );
+  }
+} */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Pasa el estado como "props" a componentes hijos
+Has visto varios ejemplos que pasaban props a elementos JSX hijos y a componentes React hijos en desafíos anteriores. Te preguntarás de dónde vienen esos props. Un patrón común es tener un componente con estado que contenga el state importante para tu aplicación, que luego renderiza los componentes hijos. Quieres que estos componentes tengan acceso a algunas partes de ese state, el cual se pasa como props.
+
+Por ejemplo, tal vez tengas un componente App que renderiza una Navbar, entre otros componentes. En tu App, tienes un state que contiene mucha información del usuario, pero la Navbar sólo necesita acceder al nombre de usuario para poder mostrarlo. Pasas esa parte del state al componente Navbar como prop.
+
+Este patrón ilustra algunos paradigmas importantes en React. El primero es unidirectional data flow. El componente de estado fluye en una sola dirección descendiendo en el árbol de componentes de tu aplicación, desde el componente padre hasta los componentes hijos. Los componentes hijos únicamente reciben los datos del componente de estado que ellos necesitan. La segunda es que las aplicaciones con estado pueden ser divididas en solo algunos, o tal vez un solo, componente con estado. El resto de tus componentes simplemente reciben el estado del padre como props, y renderizan la interfaz de usuario a partir de ese estado. Esto comienza a crear una separación donde la administración de estado es manejada en una parte del código y la renderización de la interfaz de usuario en otra. Este principio de separar la lógica de estado de la lógica de la interfaz de usuario es uno de los principios clave de React. Cuando se utiliza correctamente, hace que el diseño de aplicaciones complejas y de estado sea mucho más fácil de gestionar.
+
+El componente MyApp es de estado y renderiza un componente Navbar como un componente hijo. Pasa la propiedad name en su state al componente hijo, luego muestra el name en la etiqueta h1 que es parte del método de renderizado de Navbar. name debe aparecer luego del texto Hello, my name is:. */
+
+/* class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: 'CamperBot'
+    }
+  }
+  render() {
+    return (
+       <div>
+        
+         <Navbar name={this.state.name} />
+        
+       </div>
+    );
+  }
+};
+
+class Navbar extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return (
+    <div>
+   
+      <h1>Hello, my name is: {this.props.name}</h1>
+      
+    </div>
+    );
+  }
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Pasa una función callback como "props"
+Puedes pasar state como "props" a los componentes hijos, pero no estás limitado a pasar datos. También puedes pasar funciones manejadoras o cualquier método que se defina en un componente React a un componente hijo. Así es como tú permites que los componentes hijos interactúen con sus componentes padres. Pasas métodos a un hijo igual que un "prop" normal. Se le asigna un nombre y tienes acceso a ese nombre de método en this.props en el componente hijo.
+
+Hay tres componentes descritos en el editor de código. El componente MyApp es el padre que renderizará los componentes hijos GetInput y RenderInput. Añade el componente GetInput al método de renderizar en MyApp, luego pásale un "prop" llamado input asignado a inputValue desde el estado state de MyApp. También crea un "prop" llamado handleChange y pasa el controlador de entrada handleChange a este.
+
+A continuación, añade RenderInput al método de renderizar en MyApp, luego crea un "prop" llamado input y pasa el inputValue desde el estado state a este. Una vez que hayas terminado podrás escribir en el campo input en el componente GetInput, que luego llama al método manejador en su padre a través de "props". Esto actualiza la entrada en el state del padre, que se pasa como "props" a ambos hijos. Observa cómo fluyen los datos entre los componentes y cómo la única fuente de verdad sigue siendo el state del componente padre. Es cierto que este ejemplo es un poco inventado, pero debe servir para ilustrar cómo los datos y las funciones callback pueden ser pasados entre componentes React. */
+
+/* class MyApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValue: ''
+    }
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({
+      inputValue: event.target.value
+    });
+  }
+  render() {
+    return (
+       <div>
+        
+        <GetInput
+        input={this.state.inputValue}
+        handleChange={this.handleChange}/>
+      <RenderInput
+        input={this.state.inputValue}/>
+     
+    </div>
+ );
+}
+};
+
+class GetInput extends React.Component {
+constructor(props) {
+ super(props);
+}
+render() {
+ return (
+   <div>
+     <h3>Get Input:</h3>
+     <input
+       value={this.props.input}
+       onChange={this.props.handleChange}/>
+   </div>
+ );
+}
+};
+
+class RenderInput extends React.Component {
+constructor(props) {
+ super(props);
+}
+render() {
+ return (
+   <div>
+     <h3>Input Render:</h3>
+     <p>{this.props.input}</p>
+   </div>
+ );
+}
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Usa el método de ciclo de vida componentWillMount
+Los componentes React tienen varios métodos especiales que proporcionan oportunidades para realizar acciones en puntos específicos en el ciclo de vida de un componente. Estos se llaman métodos de ciclo de vida, o interceptores (hooks) de ciclo de vida, y te permiten interceptar componentes en determinados momentos del tiempo. Esto puede ser antes de que se rendericen, antes de que se actualicen, antes de que reciban las props, antes de que se desmonten, etc. Aquí hay una lista de algunos de los métodos principales del ciclo de vida: componentWillMount() componentDidMount() shouldComponentUpdate() componentDidUpdate() componentWillUnmount(). Las siguientes lecciones cubrirán algunos de los casos de uso básicos para estos métodos del ciclo de vida.
+
+Nota: El método de ciclo de vida componentWillMount se desaprobará en una versión futura de 16.X y se eliminará en la versión 17. Más información en este artículo
+
+El método componentWillMount() es invocado antes del método render() cuando un componente está siendo montado en el DOM. Imprime algo en la consola dentro de componentWillMount() - puede que quieras tener la consola del navegador abierta para ver el resultado. */
+
+/* class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  componentWillMount() {
+    // Cambia el código debajo de esta línea
+  console.log('Hola Mundo');
+
+    // Cambia el código encima de esta línea
+  }
+  render() {
+    return <div />
+  }
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Usa el método de ciclo de vida componentDidMount
+La mayoría de los desarrolladores web, en algún momento, necesitan llamar al endpoint de un API para obtener datos. Si estás trabajando con React, es importante saber dónde realizar esta acción.
+
+La mejor práctica con React es ubicar las llamadas API o cualquier llamada a tu servidor en el método de ciclo de vida componentDidMount(). Este método se llama después de que un componente es montado (mounted) en el DOM. Cualquier llamada a setState() aquí desencadenará un re-renderizado de tu componente. Cuando se llame a una API en este método, y se modifique el estado con los datos que la API devuelve, automáticamente se ejecutará una actualización una vez que los datos sean recibidos.
+
+Hay una llamada simulada al API en componentDidMount(). Esta llamada modifica el estado después de 2.5 segundos para simular una llamada a un servidor para obtener datos. Este ejemplo consulta el total de usuarios activos actual para un sitio. En el método render, se renderiza el valor de activeUsers en el h1 después del texto Active Users:. Mira lo que sucede en la vista previa, y siéntete libre de cambiar el tiempo de espera para ver los diferentes efectos. */
+
+/* class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeUsers: null
+    };
+  }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        activeUsers: 1273
+      });
+    }, 2500);
+  }
+  render() {
+    return (
+      <div>
+        
+        <h1>Active Users: {this.state.activeUsers} </h1>
+        
+      </div>
+    );
+  }
+} */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Agrega detectores de eventos (Event Listeners)
+El método componentDidMount() es también el mejor lugar para adjuntar cualquier detector de eventos que necesites agregar para una funcionalidad específica. React proporciona un sistema de eventos sintético que envuelve el sistema de eventos nativo presente en los navegadores. Esto significa que el sistema de eventos sintético se comporta exactamente igual independientemente del navegador del usuario, incluso si los eventos nativos se comportan diferentes entre diferentes navegadores.
 
-/* ------------------------------------------------------------- */
+Ya has estado usando algunos de estos controladores de eventos sintéticos como onClick(). El sistema de eventos sintéticos de React es excelente para usar en la mayoría de las interacciones que administrarás en elementos DOM. Sin embargo, si quieres adjuntar un controlador de eventos al documento o objetos de la ventana, debes hacerlo directamente.
 
-/* ------------------------------------------------------------- */
+Agrega un detector de eventos en el método componentDidMount() para los eventos keydown y haz que estos eventos ejecuten la función callback handleKeyPress(). Puedes usar document.addEventListener() el cual toma el evento (en comillas) como primer argumento y la función callback como segundo argumento.
 
-/* ------------------------------------------------------------- */
-
-/* ------------------------------------------------------------- */
-
-/* ------------------------------------------------------------- */
+Posteriormente, en componentWillUnmount(), remueve este mismo detector de eventos. Puedes pasar los mismos argumentos al document.removeEventListener(). Es buena práctica usar este método del ciclo de vida para hacer cualquier limpieza en un componente de React antes de que estos sean desmontados y destruidos. Removiendo los detectores de eventos es un ejemplo de una limpieza de este tipo. */
 
 /* ------------------------------------------------------------- */
 
