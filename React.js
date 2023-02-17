@@ -1198,47 +1198,314 @@ Agrega un detector de eventos en el método componentDidMount() para los eventos
 
 Posteriormente, en componentWillUnmount(), remueve este mismo detector de eventos. Puedes pasar los mismos argumentos al document.removeEventListener(). Es buena práctica usar este método del ciclo de vida para hacer cualquier limpieza en un componente de React antes de que estos sean desmontados y destruidos. Removiendo los detectores de eventos es un ejemplo de una limpieza de este tipo. */
 
-/* ------------------------------------------------------------- */
+/* class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: ''
+    };
+    this.handleEnter = this.handleEnter.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+  // Cambia el código debajo de esta línea
+  componentDidMount() {
+    document.addEventListener("keydown",this.handleKeyPress)
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keydown",this.handleKeyPress)
+  }
+  // Cambia el código encima de esta línea
+  handleEnter() {
+    this.setState((state) => ({
+      message: state.message + 'You pressed the enter key! '
+    }));
+  }
+  handleKeyPress(event) {
+    if (event.keyCode === 13) {
+      this.handleEnter();
+    }
+  }
+  render() {
+    return (
+      <div>
+        <h1>{this.state.message}</h1>
+      </div>
+    );
+  }
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Optimiza re-renderizadores con shouldComponentUpdate
+Hasta ahora, si cualquier componente recibe un nuevo state o un nuevo props, se vuelve a renderizar a sí mismo y a todos sus hijos. Normalmente, esto está bien. Pero React proporciona un método de ciclo de vida al que puedes llamar cuando los componentes hijos reciben nuevos state o props, y declarar específicamente si los componentes deben actualizarse o no. El método es shouldComponentUpdate(), y toma nextProps y nextState como parámetros.
+
+Este método es una forma útil de optimizar el rendimiento. Por ejemplo, el comportamiento predeterminado es que el componente re-renderiza cuando recibe nuevos props, incluso si los props no han cambiado. Puedes usar shouldComponentUpdate() para evitar esto comparando los props. El método debe devolver un valor boolean que le diga a React si actualizar o no el componente. Puedes comparar los "props" actuales (this.props) a los siguientes "props" (nextProps) para determinar si necesita actualizar o no, y devuelve true o false en consecuencia.
+
+El método shouldComponentUpdate() se añade en un componente llamado OnlyEvens. Actualmente, este método devuelve true, así que OnlyEvens re-renderiza cada vez que recibe nuevos props. Modifica el método para que OnlyEvens se actualice sólo si el value de sus nuevos "props" es par. Haz clic en el botón Add y observa el orden de los eventos en la consola de tu navegador mientras se activan los "hooks" del ciclo de vida. */
+
+/* class OnlyEvens extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('Should I update?');
+    // Cambia el código debajo de esta línea
+    if(nextProps.value % 2 === 0){
+    return true;
+    } return false;
+    // Cambia el código encima de esta línea
+  }
+  componentDidUpdate() {
+    console.log('Component re-rendered.');
+  }
+  render() {
+    return <h1>{this.props.value}</h1>;
+  }
+}
+
+class Controller extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 0
+    };
+    this.addValue = this.addValue.bind(this);
+  }
+  addValue() {
+    this.setState(state => ({
+      value: state.value + 1
+    }));
+  }
+  render() {
+    return (
+      <div>
+        <button onClick={this.addValue}>Add</button>
+        <OnlyEvens value={this.state.value} />
+      </div>
+    );
+  }
+} */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Introducción a los estilos en línea
+Hay otros conceptos complejos que añaden poderosas capacidades a tu código de React. Pero tal vez te estés preguntando sobre el problema más sencillo de cómo dar estilo a esos elementos JSX que creas en React. Probablemente sepas que no será exactamente lo mismo que trabajar con HTML debido a la manera en que aplicas clases a los elementos JSX.
+
+Si importas estilos desde una hoja de estilos, esto no es muy diferente. Aplica una clase a tu elemento JSX usando el atributo className, y aplica estilos a la clase en tu hoja de estilos. Otra opción es aplicar estilos en línea, los cuales son muy comunes en el desarrollo de ReactJS.
+
+Los estilos en línea se aplican a los elementos JSX de forma similar a como se hace en HTML, pero con algunas diferencias en JSX. Aquí hay un ejemplo de un estilo en línea en HTML:
+
+<div style="color: yellow; font-size: 16px">Mellow Yellow</div>
+Los elementos JSX usan el atributo style, pero debido a la forma en que JSX es transpilado, no puede establecer el valor a un string. Es su lugar, lo establece igual a un object de JavaScript. Aquí un ejemplo:
+
+<div style={{color: "yellow", fontSize: 16}}>Mellow Yellow</div>
+¿Notas cómo ponemos en camelCase la propiedad fontSize? Esto es porque React no aceptará claves kebab-case en el objeto de estilo. React aplicará el nombre correcto de la propiedad por nosotros en el HTML.
+
+Agrega un atributo style al div en el editor de código para darle al texto un color rojo y un tamaño de fuente de 72px.
+
+Ten en cuenta que puedes establecer opcionalmente el tamaño de la fuente para que sea un número, omitiendo las unidades px, o escribirlo como 72px. */
+
+/* class Colorful extends React.Component {
+  render() {
+    return (
+      <div style={{color: "red", fontSize: "72px"}}>Big Red</div>
+    );
+  }
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Agrega inline styles en React
+Es posible que hayas notado en el último desafío que había otras diferencias de sintaxis con respecto a los "inline styles" (estilos en línea) de HTML, además del atributo style establecido en un objeto de JavaScript. En primer lugar, los nombres de ciertas propiedades de estilo CSS utilizan camel case. Por ejemplo, el último desafío establece el tamaño de la fuente con fontSize en lugar de font-size. Palabras que incluyen guion como font-size son sintaxis inválidas para propiedades de objetos de JavaScript, por lo que React utiliza camel case. Como regla, cualquier propiedad de estilo que usa guion se escribe usando camel case en JSX.
+
+Todas las unidades de longitud del valor de la propiedad (como height, width, y fontSize) se supone que están en px a menos que se especifique lo contrario. Si quieres utilizar em, por ejemplo, debes envolver el valor y las unidades entre comillas, como {fontSize: "4em"}. Aparte de los valores de longitud que por defecto son px, todos los demás valores de las propiedades deben estar envueltos entre comillas.
+
+Si tienes una gran cantidad de estilos, puedes asignar un object de estilos a una constante para mantener tu código organizado. Declara tu constante "styles" como una variable global al principio del archivo. Inicializa la constante styles y asígnale un object con tres propiedades de estilo y sus valores. Dale al div un color purple, un tamaño de fuente de 40 y un borde 2px solid purple. Luego asigna al atributo style la constante styles. */
+
+/* 
+// Cambia el código encima de esta línea
+
+const styles={color:"purple", fontSize:40, border: "2px solid purple" }
+
+class Colorful extends React.Component {
+  render() {
+    // Cambia el código debajo de esta línea
+    return (
+      <div style={styles}>Style Me!</div>
+    );
+    // Cambia el código encima de esta línea
+  }
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Usa JavaScript avanzado en el método render de React
+En desafíos anteriores, aprendiste cómo inyectar código JavaScript en código JSX usando llaves, { }, para tareas como acceder a props, pasar props, acceder al state, insertar comentarios en tu código y, más recientemente, diseñar tus componentes. Todos estos son casos de uso común para poner JavaScript en JSX, pero no son la única manera de utilizar código JavaScript en tus componentes React.
+
+También puedes escribir JavaScript directamente en los métodos render, antes de la sentencia return, sin insertarlo dentro de llaves. Esto es porque aún no está dentro del código JSX. Cuando quieras utilizar una variable en el código JSX dentro de la sentencia return, colocas el nombre de la variable dentro de llaves.
+
+En el código proporcionado, el método render tiene un arreglo que contiene 20 frases para representar las respuestas encontradas en el clásico juego "Magic Eight Ball" de los años ochenta. El evento clic del botón está vinculado al método ask, por lo que cada vez que se haga clic en el botón se generará un número aleatorio y se almacenará como el randomIndex en el state. En la línea 52, elimina la cadena change me! y reasigna la constante answer para que tu código acceda aleatoriamente a un índice diferente del arreglo possibleAnswers cada vez que se actualiza el componente. Finalmente, inserta la constante answer dentro de las etiquetas p. */
+
+/* const inputStyle = {
+  width: 235,
+  margin: 5
+};
+
+class MagicEightBall extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userInput: '',
+      randomIndex: ''
+    };
+    this.ask = this.ask.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  ask() {
+    if (this.state.userInput) {
+      this.setState({
+        randomIndex: Math.floor(Math.random() * 20),
+        userInput: ''
+      });
+    }
+  }
+  handleChange(event) {
+    this.setState({
+      userInput: event.target.value
+    });
+  }
+  render() {
+    const possibleAnswers = [
+      'It is certain',
+      'It is decidedly so',
+      'Without a doubt',
+      'Yes, definitely',
+      'You may rely on it',
+      'As I see it, yes',
+      'Outlook good',
+      'Yes',
+      'Signs point to yes',
+      'Reply hazy try again',
+      'Ask again later',
+      'Better not tell you now',
+      'Cannot predict now',
+      'Concentrate and ask again',
+      "Don't count on it",
+      'My reply is no',
+      'My sources say no',
+      'Most likely',
+      'Outlook not so good',
+      'Very doubtful'
+    ];
+    const answer = possibleAnswers[this.state.randomIndex]; // Cambia esta línea
+    return (
+      <div>
+        <input
+          type='text'
+          value={this.state.userInput}
+          onChange={this.handleChange}
+          style={inputStyle}
+        />
+        <br />
+        <button onClick={this.ask}>Ask the Magic Eight Ball!</button>
+        <br />
+        <h3>Answer:</h3>
+        <p>
+          
+          {answer}
+          
+        </p>
+      </div>
+    );
+  }
+} */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Renderiza con una condición If-Else
+Otra aplicación del uso de JavaScript para controlar la vista renderizada es vincular los elementos que se renderizan a una condición. Cuando la condición es verdadera (true), se renderiza una vista. Cuando es falso (false), es una vista diferente. Puedes hacer esto con una sentencia estándar if/else en el método render() de un componente React.
+
+MyComponent contiene un boolean en su estado que rastrea si deseas mostrar algún elemento en la interfaz de usuario o no. El button alterna el estado de este valor. Actualmente, renderiza la misma interfaz de usuario cada vez. Reescribir el método render() con una sentencia if/else de modo que si display es true, devuelvas el marcado actual. De lo contrario, devuelve el marcado sin el elemento h1.
+
+Note: Debes escribir un if/else para pasar las pruebas. El uso del operador ternario no pasará aquí. */
+
+/* class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      display: true
+    }
+    this.toggleDisplay = this.toggleDisplay.bind(this);
+  }
+  toggleDisplay() {
+    this.setState((state) => ({
+      display: !state.display
+    }));
+  }
+  render() {
+    // Cambia el código debajo de esta línea
+    if (this.state.display) {
+      return (
+        <div>
+          <button onClick={this.toggleDisplay}>Toggle Display</button>
+          <h1>Displayed!</h1>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <button onClick={this.toggleDisplay}>Toggle Display</button>
+
+        </div>
+      );
+    }
+
+  }
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Usa && para una condicional más concisa
+Las sentencias if/else funcionaron en el último desafío, pero hay una manera más concisa de lograr el mismo resultado. Imagina que estás rastreando varias condiciones en un componente y deseas que diferentes elementos se rendericen dependiendo de cada una de estas condiciones. Si escribes un montón de sentencias else if para devolver UIs ligeramente diferentes, puedes repetir código que deja espacio para el error. En su lugar, puedes usar el operador lógico && para realizar lógica condicional de una manera más concisa. Esto es posible porque quieres comprobar si una condición es true, y si es así, devuelve algún código. A continuación un ejemplo:
+
+{condition && <p>markup</p>}
+Si la condition es true, el código será devuelto. Si la condición es false, la operación devolverá inmediatamente false después de evaluar la condition y no devolverá nada. Puedes incluir estas sentencias directamente en tu JSX y encadenar varias condiciones juntas escribiendo && después de cada uno. Esto te permite manejar una lógica condicional más compleja en tu método render() sin repetir un montón de código.
+
+Resuelve el ejemplo anterior de nuevo, de este modo el h1 solo renderiza si display es true, pero usa el operador lógico && en lugar de una sentencia if/else.- */
+
+/* class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      display: true
+    }
+    this.toggleDisplay = this.toggleDisplay.bind(this);
+  }
+  toggleDisplay() {
+    this.setState(state => ({
+      display: !state.display
+    }));
+  }
+  render() {
+    // Cambia el código debajo de esta línea
+    return (
+       <div>
+         <button onClick={this.toggleDisplay}>Toggle Display</button>
+         {this.state.display && <h1>Displayed!</h1>}
+       </div>
+    );
+  }
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Utiliza una expresión ternaria para el renderizado condicional
+Antes de pasar a técnicas de renderizado dinámico, hay una última forma de usar condicionales de JavaScript incorporados para representar lo que quieres: el operador ternario. El operador ternario a menudo es utilizado como un acceso directo para las sentencias if/else en JavaScript. No son tan robustas como las sentencias tradicionales if/else, pero son muy populares entre los desarrolladores de React. Una de las razones de esto es debido a cómo se compila JSX, las sentencias if/else no se pueden insertar directamente en el código JSX. Puede que hayas notado esto hace un par de desafíos, cuando se requirió una sentencia if/else, siempre estaba fuera de la sentencia return. Las expresiones ternarias pueden ser una excelente alternativa si deseas implementar lógica condicional dentro de tu JSX. Recuerda que un operador ternario tiene tres partes, pero puedes combinar varias expresiones ternarias juntas. Aquí está la sintaxis básica:
 
-/* ------------------------------------------------------------- */
+condition ? expressionIfTrue : expressionIfFalse;
+El editor de código tiene tres constantes definidas dentro del método render() del componente CheckUserAge. Estas se llaman buttonOne, buttonTwo y buttonThree. A cada una de estas se le asigna una expresión JSX simple que representa un elemento de botón. Primero, inicializa el estado de CheckUserAge con input y userAge ambos configurados a valores de una cadena vacía.
 
-/* ------------------------------------------------------------- */
-
-/* ------------------------------------------------------------- */
-
-/* ------------------------------------------------------------- */
-
-/* ------------------------------------------------------------- */
-
-/* ------------------------------------------------------------- */
+Una vez que el componente está renderizando información a la página, los usuarios deberían tener una forma de interactuar con ella. Dentro de la declaración return del componente, configura una expresión ternaria que implementa la siguiente lógica: cuando la página carga por primera vez, renderiza el botón de envío, buttonOne, a la página. Luego, cuando un usuario ingrese su edad y haga clic en el botón, renderiza un botón diferente basado en la edad. Si un usuario introduce un número menor que 18, renderiza buttonThree. Si un usuario introduce un número mayor o igual a 18, renderiza buttonTwo. */
 
 /* ------------------------------------------------------------- */
 
