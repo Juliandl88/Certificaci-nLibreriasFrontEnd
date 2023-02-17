@@ -1507,27 +1507,322 @@ El editor de código tiene tres constantes definidas dentro del método render()
 
 Una vez que el componente está renderizando información a la página, los usuarios deberían tener una forma de interactuar con ella. Dentro de la declaración return del componente, configura una expresión ternaria que implementa la siguiente lógica: cuando la página carga por primera vez, renderiza el botón de envío, buttonOne, a la página. Luego, cuando un usuario ingrese su edad y haga clic en el botón, renderiza un botón diferente basado en la edad. Si un usuario introduce un número menor que 18, renderiza buttonThree. Si un usuario introduce un número mayor o igual a 18, renderiza buttonTwo. */
 
-/* ------------------------------------------------------------- */
+/* const inputStyle = {
+  width: 235,
+  margin: 5
+};
+
+class CheckUserAge extends React.Component {
+  constructor(props) {
+    super(props);
+    // Cambia el código debajo de esta línea
+    this.state = {
+      input: "",
+      userAge: ""
+    }
+
+    // Cambia el código encima de esta línea
+    this.submit = this.submit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(e) {
+    this.setState({
+      input: e.target.value,
+      userAge: ''
+    });
+  }
+  submit() {
+    this.setState(state => ({
+      userAge: state.input
+    }));
+  }
+  render() {
+    const buttonOne = <button onClick={this.submit}>Submit</button>;
+    const buttonTwo = <button>You May Enter</button>;
+    const buttonThree = <button>You Shall Not Pass</button>;
+    return (
+      <div>
+        <h3>Enter Your Age to Continue</h3>
+        <input
+          style={inputStyle}
+          type='number'
+          value={this.state.input}
+          onChange={this.handleChange}
+        />
+        <br />
+        
+        {
+          this.state.userAge === ''
+            ? buttonOne
+            : this.state.userAge >= 18
+              ? buttonTwo
+              : buttonThree
+        }
+        
+      </div>
+    );
+  }
+} */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Renderiza condicionalmente a partir de "props"
+Hasta ahora, has visto cómo utilizar if/else, &&, y el operador ternario (condition ? expressionIfTrue : expressionIfFalse) para tomar decisiones condicionales sobre qué renderizar y cuándo. Sin embargo, queda un tema importante por discutir que te permite combinar cualquiera o todos estos conceptos con otra poderosa característica de React: las props. El uso de props para renderizar condicionalmente el código es muy común entre los desarrolladores de React, es decir, utilizan el valor de una prop dada para automáticamente tomar decisiones sobre qué renderizar.
+
+En este desafío, configurarás un componente hijo para tomar decisiones de renderizado basadas en props. También usarás el operador ternario, pero puedes ver cómo varios de los otros conceptos que se cubrieron en los últimos desafíos podrían ser igual de útiles en este contexto.
+
+El editor de código tiene dos componentes que están parcialmente definidos para ti: un padre llamado GameOfChance, y un hijo llamado Results. Se utilizan para crear un juego sencillo en el que el usuario presiona un botón para ver si gana o pierde.
+
+Primero, necesitarás una expresión simple que devuelva al azar un valor diferente cada vez que se ejecute. Puedes usar Math.random(). Este método devuelve un valor entre 0 (inclusivo) y 1 (exclusivo) cada vez que se llama. Así que para las probabilidades de 50/50, usa Math.random() >= .5 en tu expresión. Estadísticamente hablando, esta expresión devolverá true 50% de las veces, y false el otro 50%. En el método de renderizado, reemplaza null con la expresión anterior para completar la declaración de variables.
+
+Ahora tienes una expresión que puedes usar para tomar una decisión aleatoria en el código. A continuación, debes implementar esto. Renderiza el componente Results como hijo de GameOfChance, y pásalo a expression como un prop llamado fiftyFifty. En el componente Results, escribe una expresión ternaria para renderizar el elemento h1 con el texto You Win! o You Lose! basado en el prop fiftyFifty que está siendo pasado desde GameOfChance. Finalmente, asegúrate de que el método handleClick() está contando correctamente cada turno para que el usuario sepa cuántas veces ha jugado. Esto también sirve para que el usuario sepa que el componente se ha actualizado en caso de que gane o pierda dos veces seguidas. */
+
+/* class Results extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    
+    return <h1>{this.props.fiftyFifty ? "You Win!" : "You Lose!"}</h1>;
+
+    
+  }
+}
+
+class GameOfChance extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      counter: 1
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick() {
+    this.setState(prevState => {
+      // Completa la sentencia return:
+      return {
+        counter: this.state.counter + 1
+      }
+    });
+  }
+  render() {
+    const expression = Math.random() >= .5 ? true : false; // Cambia esta línea
+    return (
+      <div>
+        <button onClick={this.handleClick}>Play Again</button>
+   
+        <Results fiftyFifty={expression} />
+       
+        <p>{'Turn: ' + this.state.counter}</p>
+      </div>
+    );
+  }
+} */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Cambia el CSS inline condicionalmente según el estado del componente
+Hasta ahora has visto varias aplicaciones de renderizado condicional y el uso de inline styles. Aquí va un ejemplo más que combina los dos temas. También puedes renderizar CSS condicionalmente según el estado de un componente de React. Para hacer esto, tienes que verificar una condición, y si esa condición se cumple, modificas el objeto de estilos que está asignado a los elementos JSX del método render.
+
+Este paradigma es importante entenderlo porque es un cambio dramático del enfoque más tradicional de aplicar estilos modificando elementos del DOM directamente (muy común con jQuery, por ejemplo). Con ese enfoque, debes hacer un seguimiento de cuándo cambian los elementos y también manejar directamente la manipulación. Puede resultar difícil hacer un seguimiento de los cambios, lo que podría hacer que tu interfaz de usuario sea impredecible. Cuando configuras un objeto de estilo en función de una condición, estás describiendo cómo debería verse la interfaz de usuario en función del estado de la aplicación. Existe un flujo claro de información que sólo se mueve en una dirección. Este es el método preferido para escribir aplicaciones con React.
+
+El editor de código tiene un simple componente de entrada controlado, con un estilo de borde. Quieres aplicar un estilo rojo a este borde si el usuario escribe más de 15 caracteres de texto en la casilla de entrada. Agrega una condición para verificarlo y, si la condición es válida, establece el estilo del borde de la casilla de entrada como 3px solid red. Puedes probarlo introduciendo texto en la casilla de entrada. */
+
+/* class GateKeeper extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      input: ''
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({ input: event.target.value })
+  }
+  render() {
+    let inputStyle = {
+      border: '1px solid black'
+    };
+    // Cambia el código debajo de esta línea
+    let redStyle = {
+      border: '3px solid red'
+    };
+
+    // Cambia el código encima de esta línea
+    return (
+      <div>
+        <h3>Don't Type Too Much:</h3>
+        <input
+          type="text"
+          style={this.state.input.length>15 ? redStyle : inputStyle}
+          value={this.state.input}
+          onChange={this.handleChange} />
+      </div>
+    );
+  }
+}; */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* TODO LIST */
+
+/* Utiliza Array.map() para renderizar dinámicamente los elementos
+El renderizado condicional es útil, pero es posible que necesites tus componentes para renderizar un número desconocido de elementos. A menudo en la programación reactiva, un programador no tiene forma de saber cuál es el estado de una aplicación hasta el tiempo de ejecución, porque mucho depende de la interacción de un usuario con ese programa. Los programadores necesitan escribir su código para manejar correctamente ese estado desconocido antes de tiempo. Usar Array.map() en React ilustra este concepto.
+
+Por ejemplo, crea una aplicación simple "To Do List". Como programador, no tienes forma de saber cuántos elementos puede tener un usuario en su lista. Necesitas configurar tu componente para renderizar dinámicamente el número correcto de elementos de la lista mucho antes de que alguien que use el programa decida que hoy es día de lavandería.
+
+El editor de código tiene la mayoría del componente MyToDoList configurado. Parte de este código debería parecer familiar si completaste el desafío de formulario controlado. Vas a notar un textarea y un button, junto con un par de métodos que rastrean sus estados, pero aún no se muestra nada a la página.
+
+Dentro del constructor, crea un objeto this.state y define dos estados: userInput que debe inicializarse como una cadena vacía, y toDoList que debe inicializarse como un arreglo vacío. Luego, elimina el valor null del método render() a un costado de la variable items. En su lugar, utiliza la función map() para recorrer el arreglo toDoList almacenado en el estado interno del componente y renderizar un li por cada artículo. Intenta introducir la cadena eat, code, sleep, repeat dentro del textarea, haz clic en el botón y ve qué sucede.
+
+Nota: Puede que sepas que todos los elementos hijos hermanos creados por una operación map como ésta necesitan poseer un atributo key único. No te preocupes, este es el tema de nuestro próximo desafío.
+
+ */
+
+/* const textAreaStyles = {
+  width: 235,
+  margin: 5
+};
+
+class MyToDoList extends React.Component {
+  constructor(props) {
+    super(props);
+    // Cambia el código debajo de esta línea
+    this.state = {
+      userInput: "",
+      toDoList: []
+    }
+
+    // Cambia el código encima de esta línea
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleSubmit() {
+    const itemsArray = this.state.userInput.split(',');
+    this.setState({
+      toDoList: itemsArray
+    });
+  }
+  handleChange(e) {
+    this.setState({
+      userInput: e.target.value
+    });
+  }
+  render() {
+    const items = this.state.toDoList.map(i=> <li>{i}</li>); // Cambia esta línea
+    return (
+      <div>
+        <textarea
+          onChange={this.handleChange}
+          value={this.state.userInput}
+          style={textAreaStyles}
+          placeholder='Separate Items With Commas'
+        />
+        <br />
+        <button onClick={this.handleSubmit}>Create List</button>
+        <h1>My "To Do" List:</h1>
+        <ul>{items}</ul>
+      </div>
+    );
+  }
+} */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
+/* Proporciona a los elementos hermanos un atributo de clave única
+El último desafío mostró cómo el método map es usado para representar dinámicamente un número de elementos según la entrada del usuario. Sin embargo, faltaba una pieza importante de ese ejemplo. Cuando creas un arreglo de elementos, cada uno necesita un atributo key establecido en un valor único. React usa estas claves para realizar un seguimiento de los elementos que se agregan, cambian o eliminan. Esto ayuda a que el proceso de re-renderización sea más eficiente cuando la lista se modifica de alguna manera.
+
+Nota: Las claves solo necesitan ser únicas entre elementos hermanos, no es necesario que sean globalmente únicas en tu aplicación.
+
+El editor de código tiene un arreglo con algunos frameworks frontend y un componente funcional sin estado llamado Frameworks(). Frameworks() necesita mapear (asignar) el arreglo a una lista desordenada, como en el último desafío. Finaliza la escritura de la función callback map para devolver un elemento li por cada framework en el arreglo frontEndFrameworks. Esta vez, debes asegurarte de dar a cada elemento li un atributo key, establecido a un valor único. Los elementos li también deben contener texto de frontEndFrameworks.
+
+Normalmente, deseas hacer que la clave sea algo que identifique de manera única el elemento que se está procesando. Como último recurso se puede utilizar el índice del arreglo, pero normalmente se debe intentar usar una identificación única. */
+
+/* const frontEndFrameworks = [
+  'React',
+  'Angular',
+  'Ember',
+  'Knockout',
+  'Backbone',
+  'Vue'
+];
+
+
+
+function Frameworks() {
+  const renderFrameworks = frontEndFrameworks.map(i=><li key={i}>{i}</li>); // Cambia esta línea
+  return (
+    <div>
+      <h1>Popular Front End JavaScript Frameworks</h1>
+      <ul>
+        {renderFrameworks}
+      </ul>
+    </div>
+  );
+}; */
 
 /* ------------------------------------------------------------- */
 
+/* Usa Array.filter() para filtrar dinámicamente un arreglo
+El método de arreglo map es una potente herramienta que puedes usar a menudo al trabajar con React. Otro método relacionado con map es filter, que filtra el contenido de un arreglo basado en una condición, luego devuelve un nuevo arreglo. Por ejemplo, si tienes un arreglo de usuarios que todos tienen una propiedad online que puede establecerse en true o false, puedes filtrar sólo aquellos usuarios que estén en línea escribiendo:
+
+let onlineUsers = users.filter(user => user.online);
+En el editor de código, el state de MyComponent es inicializado con un arreglo de usuarios. Algunos usuarios están conectados y otros no. Filtra el arreglo para que sólo veas a los usuarios que están en línea. Para hacer esto, primero usa filter para devolver un nuevo arreglo que contiene solo a los usuarios cuya propiedad online es true. Luego, en la variable renderOnline, asigna sobre el arreglo filtrado, y devuelve un elemento li para cada usuario que contiene el texto de su username. Asegúrate de incluir también una única key, como en los últimos desafíos.
+
+ */
+
+/* class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      users: [
+        {
+          username: 'Jeff',
+          online: true
+        },
+        {
+          username: 'Alan',
+          online: false
+        },
+        {
+          username: 'Mary',
+          online: true
+        },
+        {
+          username: 'Jim',
+          online: false
+        },
+        {
+          username: 'Sara',
+          online: true
+        },
+        {
+          username: 'Laura',
+          online: true
+        }
+      ]
+    };
+  }
+  render() {
+    const usersOnline = this.state.users.filter(user => user.online === true); // Cambia esta línea
+    const renderOnline = usersOnline.map(user => <li key={user.username}>{user.username}</li>); // Cambia esta línea
+    return (
+      <div>
+        <h1>Current Online Users:</h1>
+        <ul>{renderOnline}</ul>
+      </div>
+    );
+  }
+} */
+
 /* ------------------------------------------------------------- */
+
+/* Renderiza React en el servidor con renderToString
+Hasta ahora, has estado renderizando componentes React en el cliente. Normalmente, esto es lo que siempre harás. Sin embargo, hay algunos casos de uso donde tiene sentido renderizar un componente React en el servidor. Dado que React es una librería de vistas de JavaScript y se puede ejecutar JavaScript en el servidor con Node, esto es posible. De hecho, React proporciona un método renderToString() que puedes usar para este propósito.
+
+Hay dos razones clave por las que el renderizado en el servidor puede ser usado en una aplicación del mundo real. Primero, sin hacer esto, tus aplicaciones de React consistirían en un archivo HTML relativamente vacío y un gran paquete de JavaScript cuando se carga inicialmente en el navegador. Esto puede no ser ideal para motores de búsqueda que intentan indexar el contenido de tus páginas para que la gente pueda encontrarte. Si renderizas el código HTML inicial en el servidor y lo envía al cliente, la carga de la página inicial contiene todo el código de la página que los motores de búsqueda pueden rastrear. Segundo, esto crea una experiencia de carga de página inicial más rápida porque el HTML renderizado es más pequeño que el código JavaScript de toda la aplicación. React aún podrá reconocer tu aplicación y administrarla después de la carga inicial.
+
+El método renderToString() se proporciona en ReactDOMServer, el cual está disponible aquí como un objeto global. El método toma un argumento que es un elemento React. Usa esto para renderizar App a una cadena. */
 
 /* ------------------------------------------------------------- */
 
