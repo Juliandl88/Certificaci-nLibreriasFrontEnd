@@ -1824,10 +1824,20 @@ Hay dos razones clave por las que el renderizado en el servidor puede ser usado 
 
 El método renderToString() se proporciona en ReactDOMServer, el cual está disponible aquí como un objeto global. El método toma un argumento que es un elemento React. Usa esto para renderizar App a una cadena. */
 
-/* ------------------------------------------------------------- */
+/* class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <div/>
+  }
+};
+
+
+
+// Change code below this line
+ReactDOMServer.renderToString(<App />) */
 
 /* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
 
-/* ------------------------------------------------------------- */
