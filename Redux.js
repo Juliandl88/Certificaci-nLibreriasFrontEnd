@@ -22,13 +22,30 @@ Declara una variable store y asígnala al método createStore(), pasando el redu
 
 Nota: El código del editor utiliza la sintaxis de los argumentos por defecto de ES6 para inicializar este estado y mantener un valor de 5. Si no está familiarizado con los argumentos predeterminados, puede consultar elES6 section in the Curriculum que cubre este tema.*/
 
-/* ---------------------------------------------------------------*/
+/* const reducer = (state = 5) => {
+  return state;
+}
+
+// Los métodos Redux están disponibles desde un objeto Redux
+// Por ejemplo: Redux.createStore()
+// Define el store aquí:
+
+let store = Redux.createStore(reducer);*/
 
 /* ---------------------------------------------------------------*/
 
-/* ---------------------------------------------------------------*/
+/* Obtén el estado del almacén Redux
+El objeto almacén Redux proporciona varios métodos que permiten interactuar con él. Por ejemplo, puedes recuperar el state actual que tiene el objeto almacén Redux con el método getState().
 
-/* ---------------------------------------------------------------*/
+El código del desafío anterior se reescribe de forma más concisa en el editor de código. Utiliza store.getState() para recuperar el state del store, y asígnalo a una nueva variable currentState.*/
+
+/* const store = Redux.createStore(
+  (state = 5) => state
+);
+
+// Cambia el código debajo de esta línea
+
+let currentState = store.getState()-*/
 
 /* ---------------------------------------------------------------*/
 
