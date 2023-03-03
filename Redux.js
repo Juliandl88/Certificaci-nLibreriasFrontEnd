@@ -264,31 +264,201 @@ const logoutUser = () => {
 
 /* ---------------------------------------------------------------*/
 
-/* ---------------------------------------------------------------*/
+/* Registra un escucha al almacén
+Otro método al que tienes acceso en el objeto Redux store es store.subscribe(). Esto te permite suscribir funciones de escucha al almacén, que se llaman cada vez que se envía una acción contra el almacén. Un uso sencillo de este método es suscribir una función a tu almacén que simplemente registra un mensaje cada vez que se recibe una acción y se actualiza el almacén.
+
+Escribe una función callback que incremente la variable global count cada vez que el almacén recibe una acción, y pasa esta función al método store.subscribe(). Verás que store.dispatch() es llamado tres veces seguidas, cada vez pasando directamente un objeto de acción. Observa la salida de la consola entre los envíos de acción para ver cómo se producen las actualizaciones.*/
+
+/* const ADD = 'ADD';
+
+const reducer = (state = 0, action) => {
+  switch(action.type) {
+    case ADD:
+      return state + 1;
+    default:
+      return state;
+  }
+};
+
+const store = Redux.createStore(reducer);
+
+// Variable global count:
+let count = 0;
+
+// Cambia el código debajo de esta línea
+store.subscribe(()=>count++)
+// Cambia el código encima de esta línea
+
+store.dispatch({type: ADD});
+console.log(count);
+store.dispatch({type: ADD});
+console.log(count);
+store.dispatch({type: ADD});
+console.log(count);*/
 
 /* ---------------------------------------------------------------*/
 
-/* ---------------------------------------------------------------*/
+/* Combina múltiples reductores
+Cuando el estado de tu aplicación empieza a ser más complejo, puede ser tentador dividir el estado en varias piezas. En su lugar, recuerda el primer principio de Redux: todo el estado de la aplicación se mantiene en un único objeto de estado en el almacén. Por lo tanto, Redux proporciona la composición de reductores como una solución para un modelo de estado complejo. Se definen varios reductores para manejar diferentes partes del estado de tu aplicación, y luego se componen estos reductores juntos en un reductor raíz. El reductor raíz se pasa al método Redux createStore().
+
+Para permitirnos combinar múltiples reductores juntos, Redux proporciona el método combineReducers(). Este método acepta un objeto como argumento en el que se definen las propiedades que asocian las claves a funciones reductoras específicas. El nombre que le des a las claves será utilizado por Redux como el nombre de la pieza de estado asociada.
+
+Por lo general, es una buena práctica crear un reductor para cada pieza de estado de la aplicación cuando son distintas o únicas de alguna manera. Por ejemplo, en una aplicación para tomar notas con autenticación de usuario, un reductor podría encargarse de la autenticación, mientras que otro se encarga del texto y las notas que el usuario envía. Para tal aplicación, podríamos escribir el método combineReducers() así:
+
+const rootReducer = Redux.combineReducers({
+  auth: authenticationReducer,
+  notes: notesReducer
+});
+Ahora, la clave notes contendrá todo el estado asociado a nuestras notas y manejado por nuestro notesReducer. Así es como se pueden componer múltiples reductores para gestionar un estado de aplicación más complejo. En este ejemplo, el estado mantenido en el almacén Redux sería entonces un único objeto que contiene las propiedades auth y notes.
+
+Están las funciones counterReducer() y authReducer() proporcionadas en el editor de código, junto con un almacén Redux. Termina de escribir la función rootReducer() utilizando el método Redux.combineReducers(). Asigna counterReducer a una clave llamada count y authReducer a una clave llamada auth.*/
+
+/* const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
+
+const counterReducer = (state = 0, action) => {
+  switch(action.type) {
+    case INCREMENT:
+      return state + 1;
+    case DECREMENT:
+      return state - 1;
+    default:
+      return state;
+  }
+};
+
+const LOGIN = 'LOGIN';
+const LOGOUT = 'LOGOUT';
+
+const authReducer = (state = {authenticated: false}, action) => {
+  switch(action.type) {
+    case LOGIN:
+      return {
+        authenticated: true
+      }
+    case LOGOUT:
+      return {
+        authenticated: false
+      }
+    default:
+      return state;
+  }
+};
+
+const rootReducer = Redux.combineReducers({
+  count:counterReducer, 
+  auth:authReducer
+});
+
+const store = Redux.createStore(rootReducer);*/
 
 /* ---------------------------------------------------------------*/
 
-/* ---------------------------------------------------------------*/
+/* Envía datos de acción al almacén
+A estas alturas ya has aprendido a enviar acciones al almacén de Redux, pero hasta ahora estas acciones no contenían más información que un type. También puedes enviar datos específicos junto con sus acciones. De hecho, esto es muy común porque las acciones suelen originarse a partir de alguna interacción del usuario y suelen llevar consigo algunos datos. El almacén Redux a menudo necesita conocer estos datos.
+
+Hay un notesReducer() básico y un creador de acción addNoteText() definido en el editor de código. Termina el cuerpo de la función addNoteText() para que devuelva un objeto action. El objeto debe incluir una propiedad type con un valor de ADD_NOTE, y también una propiedad text establecida a los datos de note que se pasa al creador de acción. Cuando llames al creador de acción, pasarás información específica de la nota a la que puedes acceder para el objeto.
+
+A continuación, termina de escribir la sentencia switch en el notesReducer(). Necesitas añadir un caso que maneje las acciones addNoteText(). Este caso debe activarse siempre que haya una acción de tipo ADD_NOTE y debe devolver la propiedad text de la action entrante como el nuevo state.
+
+La acción es enviada en la parte inferior del código. Una vez que hayas terminado, ejecuta el código y observa la consola. Eso es todo lo que se necesita para enviar datos específicos de la acción al almacén y utilizarlos cuando se actualiza el state del almacén.*/
+
+/* const ADD_NOTE = 'ADD_NOTE';
+
+const notesReducer = (state = 'Initial State', action) => {
+  switch(action.type) {
+    // Cambia el código debajo de esta línea
+    case ADD_NOTE:
+      return action.text;
+    // Cambia el código encima de esta línea
+    default:
+      return state;
+  }
+};
+
+const addNoteText = (note) => {
+  // Cambia el código debajo de esta línea
+  return {
+  type: ADD_NOTE,
+  text: note
+  }
+  // Cambia el código encima de esta línea
+};
+
+const store = Redux.createStore(notesReducer);
+
+console.log(store.getState());
+store.dispatch(addNoteText('Hello!'));
+console.log(store.getState());*/
 
 /* ---------------------------------------------------------------*/
 
-/* ---------------------------------------------------------------*/
+/* Usa middleware para manejar acciones asíncronas
+Hasta ahora hemos evitado hablar de las acciones asíncronas, pero son una parte inevitable del desarrollo web. En algún momento necesitarás llamar a endpoints asíncronos en tu aplicación Redux, así que ¿cómo manejas este tipo de peticiones? Redux proporciona un middleware diseñado específicamente para este propósito, llamado Redux Thunk middleware. Aquí hay una breve descripción de cómo usar esto con Redux.
+
+Para incluir el Redux Thunk middleware, lo pasas como argumento a Redux.applyMiddleware(). Esta declaración se proporciona entonces como un segundo parámetro opcional a la función createStore(). Echa un vistazo al código en la parte inferior del editor para ver esto. Entonces, para crear una acción asíncrona, se devuelve una función en el creador de acción que toma dispatch como argumento. Dentro de esta función, se pueden enviar acciones y realizar peticiones asíncronas.
+
+En este ejemplo, se simula una petición asíncrona con una llamada setTimeout(). Es común enviar una acción antes de iniciar cualquier comportamiento asíncrono para que el estado de tu aplicación sepa que se están solicitando algunos datos (este estado podría mostrar un icono de carga, por ejemplo). Luego, una vez que recibes los datos, envía otra acción que lleva los datos como carga útil junto con la información de que la acción se ha completado.
+
+Recuerda que estás pasando dispatch como parámetro a este creador de acciones especiales. Esto es lo que usarás para enviar tus acciones, simplemente pasas la acción directamente a dispatch y el middleware se encarga del resto.
+
+Escribe ambos envíos en el creador de acción handleAsync(). Envía requestingData() antes del setTimeout() (la llamada al API simulada). A continuación, después de recibir los datos (fingidos), envía la acción receivedData(), pasando estos datos. Ahora ya sabes cómo manejar las acciones asíncronas en Redux. Todo lo demás sigue comportándose como antes.*/
+
+/* const REQUESTING_DATA = 'REQUESTING_DATA'
+const RECEIVED_DATA = 'RECEIVED_DATA'
+
+const requestingData = () => { return {type: REQUESTING_DATA} }
+const receivedData = (data) => { return {type: RECEIVED_DATA, users: data.users} }
+
+const handleAsync = () => {
+  return function(dispatch) {
+    // Despacha la acción request aquí
+    dispatch(requestingData());
+
+    setTimeout(function() {
+      let data = {
+        users: ["Jeff", "William", "Alice"]
+      };
+      // dispatch received data action here
+
+      dispatch(receivedData(data));
+    }, 2500);
+  }
+};
+
+const defaultState = {
+  fetching: false,
+  users: []
+};
+
+const asyncDataReducer = (state = defaultState, action) => {
+  switch(action.type) {
+    case REQUESTING_DATA:
+      return {
+        fetching: true,
+        users: []
+      }
+    case RECEIVED_DATA:
+      return {
+        fetching: false,
+        users: action.users
+      }
+    default:
+      return state;
+  }
+};
+
+const store = Redux.createStore(
+  asyncDataReducer,
+  Redux.applyMiddleware(ReduxThunk.default)
+); */
 
 /* ---------------------------------------------------------------*/
 
-/* ---------------------------------------------------------------*/
+/* Escribe un contador con Redux
+¡Ahora ya has aprendido todos los principios básicos de Redux! Has visto cómo crear acciones y creadores de acción, crear un almacén Redux, enviar tus acciones contra el almacén y diseñar actualizaciones de estado con reductores puros. Incluso has visto cómo gestionar estados complejos con la composición de reductores y manejar acciones asíncronas. Estos ejemplos son simplistas, pero estos conceptos son los principios básicos de Redux. Si los entiendes bien, estás listo para empezar a crear tu propia aplicación Redux. Los próximos desafíos cubren algunos de los detalles relacionados con la inmutabilidad de state, pero primero, aquí hay un repaso de todo lo que has aprendido hasta ahora.
 
-/* ---------------------------------------------------------------*/
-
-/* ---------------------------------------------------------------*/
-
-/* ---------------------------------------------------------------*/
-
-/* ---------------------------------------------------------------*/
+En esta lección, implementarás un simple contador con Redux desde cero. El editor de código proporciona lo básico, ¡pero tendrás que completar los detalles! Utiliza los nombres que se proporcionan y define los creadores de acciones incAction y decAction, el counterReducer(), los tipos de acción INCREMENT y DECREMENT, y finalmente el store de Redux. Una vez que hayas terminado deberías poder enviar acciones INCREMENT o DECREMENT para incrementar o disminuir el estado mantenido en el store. ¡Buena suerte construyendo tu primera aplicación Redux!*/
 
 /* ---------------------------------------------------------------*/
 
