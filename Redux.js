@@ -460,36 +460,173 @@ const store = Redux.createStore(
 
 En esta lección, implementarás un simple contador con Redux desde cero. El editor de código proporciona lo básico, ¡pero tendrás que completar los detalles! Utiliza los nombres que se proporcionan y define los creadores de acciones incAction y decAction, el counterReducer(), los tipos de acción INCREMENT y DECREMENT, y finalmente el store de Redux. Una vez que hayas terminado deberías poder enviar acciones INCREMENT o DECREMENT para incrementar o disminuir el estado mantenido en el store. ¡Buena suerte construyendo tu primera aplicación Redux!*/
 
-/* ---------------------------------------------------------------*/
+/* const INCREMENT = "INCREMENT"; // Define una constante para acciones de incremento
+const DECREMENT = "DECREMENT"; // Define una constante para acciones de decremento
+
+const counterReducer = (state = 0, action)=>{
+  switch(action.type){
+    case INCREMENT:
+      return state+1
+
+    case DECREMENT:
+      return state-1
+    
+    default: 
+      return state
+  }
+}; // Define el reductor counter que aumentará o disminuirá el estado en función de la acción que reciba
+
+const incAction = ()=>{
+  return {
+    type: INCREMENT
+  }
+}; // Define un creador de acción para incrementar
+
+const decAction = ()=>{
+  return {
+    type: DECREMENT
+  };
+ }; // Define un creador de acción para decrementar
+
+ // Define el store de Redux aquí, pasando tus reductores
+ const store = Redux.createStore(counterReducer);*/
+
+/* Nunca mutes el estado
+Estos desafíos finales describen varios métodos para hacer cumplir el principio clave de la inmutabilidad del estado en Redux. Estado inmutable significa que nunca se modifica el estado directamente, sino que se devuelve una nueva copia del estado.
+
+Si tomaras una captura del estado de una aplicación Redux a lo largo del tiempo, verías algo como state 1, state 2, state 3,state 4, ... y así sucesivamente donde cada estado puede ser similar al anterior, pero cada uno es un dato distinto. Esta inmutabilidad, de hecho, es lo que proporciona características tales como la depuración de viajes en el tiempo de la que puedes haber oído hablar.
+
+Redux no impone activamente la inmutabilidad del estado en su almacén o reductores, esa responsabilidad recae en el programador. Afortunadamente, JavaScript (especialmente ES6) proporciona varias herramientas útiles que puedes utilizar para reforzar la inmutabilidad de tu estado, ya sea un string, number, array, u object. Ten en cuenta que las cadenas y los números son valores primitivos y son inmutables por naturaleza. En otras palabras, 3 siempre es 3. No se puede cambiar el valor del número 3. Sin embargo, un array u object es mutable. En la práctica, tu estado probablemente consistirá en un array u object, ya que son estructuras de datos útiles para representar muchos tipos de información.
+
+Hay un store y un reducer en el editor de código para gestionar los elementos de las tareas pendientes. Termina de escribir el caso ADD_TO_DO en el reductor para añadir una nueva tarea al estado. Hay algunas maneras de lograr esto con JavaScript estándar o ES6. Ve si puedes encontrar la forma de devolver un nuevo arreglo con el elemento de action.todo añadido al final.*/
+
+/* const ADD_TO_DO = "ADD_TO_DO";
+
+// A list of strings representing tasks to do:
+const todos = [
+  "Go to the store",
+  "Clean the house",
+  "Cook dinner",
+  "Learn to code"
+];
+
+const immutableReducer = (state = todos, action) => {
+  switch (action.type) {
+    case ADD_TO_DO:
+      // don't mutate state here or the tests will fail
+
+      return state.concat(action.todo);
+    // or return [...state, action.todo]
+
+    default:
+      return state;
+  }
+};
+
+// an example todo argument would be 'Learn React',
+const addToDo = todo => {
+  return {
+    type: ADD_TO_DO,
+    todo
+  };
+};
+
+const store = Redux.createStore(immutableReducer);*/
 
 /* ---------------------------------------------------------------*/
 
-/* ---------------------------------------------------------------*/
+/* Usa el operador de propagación en arreglos
+Una solución de ES6 para ayudar a reforzar la inmutabilidad del estado en Redux es el operador de propagación: .... El operador de propagación tiene una variedad de aplicaciones, una de las cuales es muy adecuada para el desafío anterior de producir un nuevo arreglo a partir de un arreglo existente. Se trata de una sintaxis relativamente nueva, pero de uso común. Por ejemplo, si tienes un arreglo myArray y escribes:
+
+let newArray = [...myArray];
+newArray es ahora un clon de myArray. Ambos arreglos siguen existiendo por separado en la memoria. Si realizas una mutación como newArray.push(5), myArray no cambia. El ... efectivamente distribuye los valores de myArray en un nuevo arreglo. Para clonar un arreglo pero añadir valores adicionales en el nuevo arreglo, se podría escribir [...myArray, 'new value']. Esto devolvería un nuevo arreglo compuesto por los valores de myArray y la cadena new value como último valor. La sintaxis de propagación se puede utilizar varias veces en la composición de arreglos como este, pero es importante tener en cuenta que sólo hace una copia superficial del arreglo. Es decir, sólo proporciona operaciones de arreglos inmutables para arreglos unidimensionales.
+
+Utiliza el operador de propagación para devolver una nueva copia del estado cuando se añade una tarea.*/
+
+/* const immutableReducer = (state = ['Do not mutate state!'], action) => {
+  switch(action.type) {
+    case 'ADD_TO_DO':
+      let arr = [...state, action.todo];
+      return arr;
+    // No mutes el estado aquí o la prueba fallará
+    default:
+      return state;
+  }
+};
+
+const addToDo = (todo) => {
+  return {
+    type: 'ADD_TO_DO',
+    todo
+  }
+}
+
+const store = Redux.createStore(immutableReducer);*/
 
 /* ---------------------------------------------------------------*/
 
-/* ---------------------------------------------------------------*/
+/* Elimina un elemento de un arreglo
+Es hora de practicar la eliminación de elementos de un arreglo. Aquí también se puede utilizar el operador de propagación. Otros métodos útiles de JavaScript son slice() y concat().
+
+El reductor y el creador de acción fueron modificados para eliminar un elemento de un arreglo en función del índice del elemento. Termina de escribir el reductor para que devuelva un nuevo arreglo de estados con el elemento en el índice específico eliminado.*/
+
+/* const immutableReducer = (state = [0,1,2,3,4,5], action) => {
+  switch(action.type) {
+    case 'REMOVE_ITEM':
+      return [
+        ...state.slice(0, action.index),
+        ...state.slice(action.index + 1, state.length)
+      ];// No mutes el estado aquí o la prueba fallará
+     
+    default:
+      return state;
+  }
+};
+
+const removeItem = (index) => {
+  return {
+    type: 'REMOVE_ITEM',
+    index
+  }
+}
+
+const store = Redux.createStore(immutableReducer);*/
 
 /* ---------------------------------------------------------------*/
 
-/* ---------------------------------------------------------------*/
+/* Copia un objeto con Object.assign
+Los últimos desafíos trabajaron con arreglos, pero hay maneras de ayudar a reforzar la inmutabilidad del estado cuando el estado es también un object. Una herramienta útil para el manejo de objetos es la utilidad Object.assign(). Object.assign() toma un objeto de destino y objetos de origen y asigna propiedades de los objetos de origen al objeto de destino. Las propiedades que coinciden se sobrescriben con las propiedades de los objetos de origen. Este comportamiento se utiliza comúnmente para hacer copias superficiales de objetos pasando un objeto vacío como primer argumento seguido por el/los objeto(s) que se desea(n) copiar. A continuación un ejemplo:
+
+const newObject = Object.assign({}, obj1, obj2);
+Esto crea newObject como un nuevo object, que contiene las propiedades que existen actualmente en obj1 y obj2.
+
+El estado y las acciones de Redux fueron modificados para manejar un object para el state. Edita el código para devolver un nuevo objeto state para las acciones de tipo ONLINE, que establece la propiedad status a la cadena online. Intenta utilizar Object.assign() para completar el desafío.*/
+
+/* const defaultState = {
+  user: 'CamperBot',
+  status: 'offline',
+  friends: '732,982',
+  community: 'freeCodeCamp'
+};
+
+const immutableReducer = (state = defaultState, action) => {
+  switch(action.type) {
+    case 'ONLINE':
+    return Object.assign({}, state, { status: "online" });
+      // No mutes el estado aquí o la prueba fallará
+      return
+    default:
+      return state;
+  }
+};
+
+const wakeUp = () => {
+  return {
+    type: 'ONLINE'
+  }
+};
+
+const store = Redux.createStore(immutableReducer);*/
 
 /* ---------------------------------------------------------------*/
 
-/* ---------------------------------------------------------------*/
-
-/* ---------------------------------------------------------------*/
-
-/* ---------------------------------------------------------------*/
-
-/* ---------------------------------------------------------------*/
-
-/* ---------------------------------------------------------------*/
-
-/* ---------------------------------------------------------------*/
-
-/* ---------------------------------------------------------------*/
-
-/* ---------------------------------------------------------------*/
-
-/* ---------------------------------------------------------------*/
