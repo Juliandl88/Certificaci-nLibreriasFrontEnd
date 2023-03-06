@@ -6,9 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css">
     <script>
-        const QuoteBank = [
+        const quoteBank = [
             {
-                quote: "The truth is, everyone is going to hurt you. You just got to find the ones worth suffering for.",
+                quote: "“The truth is, everyone is going to hurt you. You just got to find the ones worth suffering for.”",
+                author: "Bob Marley"
+            },
+            {
+                quote: "“None but ourselves can free our minds.”",
+                author: "Bob Marley"
+            },
+            {
+                quote: "“Don't Gain The World & Lose Your Soul, Wisdom Is Better Than Silver Or Gold.”",
+                author: "Bob Marley"
+            },
+            {
+                quote: "“Open your eyes, look within. Are you satisfied with the life you're living?”",
+                author: "Bob Marley"
+            },
+            {
+                quote: "“The people who were trying to make this world worse are not taking the day off. Why should I?”",
+                author: "Bob Marley"
+            },
+            {
+                quote: "“The biggest coward of a man is to awaken the love of a woman without the intention of loving her.”",
+                author: "Bob Marley"
+            },
+            {
+                quote: "“The good times of today are the sad thoughts of tomorrow.”",
                 author: "Bob Marley"
             }
         ]
@@ -19,20 +43,36 @@
         }
 
         function generateQuote(){
-            console.log("Quote generated"); 
-            document.getElementById("text").innerText = "Useful Programmer"
-            document.getElementById("author").innerText = "The author"
+            let quoteSize = quoteBank.length;
+            let randomIndex = Math.floor(Math.random() * quoteSize)
+            let randomQuoteData = quoteBank[randomIndex];
+            
+            let twitterLink = "https://twitter.com/intent/tweet?hashtags=quotes&amp;related=freecodecamp&amp;text=%22"
+            //agregar la cita
+            twitterLink += "Our%20lives%20begin%20to%20end%20the%20day%20we%20become%20silent%20about%20things%20that%20matter.%22%20"
+            //agregar el autor
+            twitterLink +="Martin%20Luther%20King%20Jr."
+            
+            let quoteInApiFormat = randomQuoteData.quote.replace(/ /g, "%20");
+            twitterLink += quoteInApiFormat;
+
+            let authorInApiFormat = randomQuoteData.author.replace(/ /g, "%20");
+            twitterLink += authorInApiFormat;
+
+            document.getElementById("tweet-quote").href = twitterLink;
+            document.getElementById("text").innerText = randomQuoteData.quote;
+            document.getElementById("author").innerText = randomQuoteData.author;
         }
     </script>
-    <title>Random Quote</title>
+    <title>Random Quote Bob Marley</title>
 </head>
 <body>
-    <h1>Random Quotes</h1>
-    <wrapper id="quote.box">
+    <h1>Random Quotes Bob Marley</h1>
+    <wrapper id="quote-box">
         <div id="text"></div>
         <div id="author"></div>
         <button id="new-quote" onclick="generateQuote()">New quote</button>
-        <a src="#" id="tweet-quote">Tweet quote</a>
+        <a href="#" target="_blank" id="tweet-quote">Tweet quote</a>
     </wrapper>
         <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
 </body>
