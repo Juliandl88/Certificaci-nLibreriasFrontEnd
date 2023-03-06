@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <script>
+        const QuoteBank = [
+            {
+                quote: "The truth is, everyone is going to hurt you. You just got to find the ones worth suffering for.",
+                author: "Bob Marley"
+            }
+        ]
+
+        window.onload = init;
+        function init() {
+            generateQuote()
+        }
+
+        function generateQuote(){
+            console.log("Quote generated"); 
+            document.getElementById("text").innerText = "Useful Programmer"
+            document.getElementById("author").innerText = "The author"
+        }
+    </script>
+    <title>Random Quote</title>
+</head>
+<body>
+    <h1>Random Quotes</h1>
+    <wrapper id="quote.box">
+        <div id="text"></div>
+        <div id="author"></div>
+        <button id="new-quote" onclick="generateQuote()">New quote</button>
+        <a src="#" id="tweet-quote">Tweet quote</a>
+    </wrapper>
+        <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+</body>
+</html>
