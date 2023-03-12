@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css">
     <script>
-        const quoteBank = [
+        const QUOTEBANK = [
             {
                 quote: "“The truth is, everyone is going to hurt you. You just got to find the ones worth suffering for.”",
                 author: "Bob Marley"
@@ -43,11 +43,11 @@
         }
 
         function generateQuote(){
-            let quoteSize = quoteBank.length;
+            let quoteSize = QUOTEBANK.length;
             let randomIndex = Math.floor(Math.random() * quoteSize)
-            let randomQuoteData = quoteBank[randomIndex];
+            let randomQuoteData = QUOTEBANK[randomIndex];
             
-            let twitterLink = "https://twitter.com/intent/tweet?hashtags=quotes&amp;related=freecodecamp&amp;text=%22"
+           let twitterLink = "https://twitter.com/intent/tweet?hashtags=quotes&amp;related=freecodecamp&amp;text=%22"
             //agregar la cita
             twitterLink += "Our%20lives%20begin%20to%20end%20the%20day%20we%20become%20silent%20about%20things%20that%20matter.%22%20"
             //agregar el autor
@@ -62,12 +62,9 @@
             document.getElementById("tweet-quote").href = twitterLink;
             document.getElementById("text").innerText = randomQuoteData.quote;
             document.getElementById("author").innerText = randomQuoteData.author;
-            //document.getElementById("author").innerText = randomQuoteData.author;
-            //document.getElementById("author").innerText = randomQuoteData.author;
-            //document.getElementById("author").innerText = randomQuoteData.author;
-            console.log("author" + author)
-            //document.getElementById("author").innerText = randomQuoteData.author;
-            //document.getElementById("author").innerText = randomQuoteData.author;
+
+    
+           
             console.log("author" + author)
         }
     </script>
