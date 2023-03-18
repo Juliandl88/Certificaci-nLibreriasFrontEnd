@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <title>Random Quote Bob Marley</title>
+    <script>
+      const QUOTEBANK = [
+        {
+          quote:
+            "“The truth is, everyone is going to hurt you. You just got to find the ones worth suffering for.”",
+          author: "Bob Marley",
+        },
+        {
+          quote: "“None but ourselves can free our minds.”",
+          author: "Bob Marley",
+        },
+        {
+          quote:
+            "“Don't Gain The World & Lose Your Soul, Wisdom Is Better Than Silver Or Gold.”",
+          author: "Bob Marley",
+        },
+        {
+          quote:
+            "“Open your eyes, look within. Are you satisfied with the life you're living?”",
+          author: "Bob Marley",
+        },
+        {
+          quote:
+            "“The people who were trying to make this world worse are not taking the day off. Why should I?”",
+          author: "Bob Marley",
+        },
+        {
+          quote:
+            "“The biggest coward of a man is to awaken the love of a woman without the intention of loving her.”",
+          author: "Bob Marley",
+        },
+        {
+          quote: "“The good times of today are the sad thoughts of tomorrow.”",
+          author: "Bob Marley",
+        },
+      ];
+
+      window.onload = init;
+      function init() {
+        generateQuote();
+      }
+
+      function generateQuote() {
+        let quoteSize = QUOTEBANK.length;
+        let randomIndex = Math.floor(Math.random() * quoteSize);
+        let randomQuoteData = QUOTEBANK[randomIndex];
+
+        let twitterLink = "https://twitter.com/intent/tweet?text=";
+        //agregar la cita
+        twitterLink +=
+          "Our%20lives%20begin%20to%20end%20the%20day%20we%20become%20silent%20about%20things%20that%20matter.%22%20";
+        
+          //agregar el autor
+        twitterLink += "Martin%20Luther%20King%20Jr.";
+
+        let quoteInApiFormat = randomQuoteData.quote.replace(/ /g, "%20");
+        twitterLink += quoteInApiFormat;
+
+        let authorInApiFormat = randomQuoteData.author.replace(/ /g, "%20");
+        twitterLink += authorInApiFormat;
+
+        document.getElementById("tweet-quote").href = twitterLink;
+        document.getElementById("text").innerText = randomQuoteData.quote;
+        document.getElementById("author").innerText = randomQuoteData.author;
+
+        
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row py-5">
+        <div class="col-md-8 offset-md-2">
+          <wrapper id="quote-box">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="text-center">Random Quotes Bob Marley</h3>
+              </div>
+              <div class="card-body text-center">
+                <h5 id="text"></h5>
+                <div id="author" class="text-center card-text m-2"></div>
+                <div class="d-grid gap-2">
+                  <button
+                    id="new-quote"
+                    onclick="generateQuote()"
+                    class="btn btn-block btn-success"
+                  >
+                    New Quote
+                  </button>
+                  <a
+                    href="#"
+                    target="_blank"
+                    id="tweet-quote"
+                    class="btn btn-block btn-primary"
+                    >Tweet Quote</a
+                  >
+                </div>
+              </div>
+            </div>
+          </wrapper>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
